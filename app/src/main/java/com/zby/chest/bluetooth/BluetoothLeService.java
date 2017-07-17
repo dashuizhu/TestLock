@@ -71,7 +71,7 @@ import java.util.UUID;
 	public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
 	public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
 	public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-	public final static String ACTION_GATT_RECONNECTING = "com.example.bluetooth.le.ACTION_GATT_RECONNECTING";// 在重连中
+	public final static String ACTION_GATT_RECONNECTING = "com.example.bluetooth.le.ACTION_GATT_RECONNECTING";
 	public final static String ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
 	public final static String EXTRA_DATA = "com.example.bluetooth.le.EXTRA_DATA";
 
@@ -144,7 +144,6 @@ import java.util.UUID;
 		}
 
 		*//**
-		 * 返回数据。
 		 *//*
 		@Override
 		public void onCharacteristicChanged(BluetoothGatt gatt,
@@ -156,14 +155,12 @@ import java.util.UUID;
 		public void onCharacteristicWrite(BluetoothGatt gatt,
 				BluetoothGattCharacteristic characteristic, int status) {
 			// TODO Auto-generated method stub
-			Log.d("tag_send", "发送回调  " + status + " ");
 			super.onCharacteristicWrite(gatt, characteristic, status);
 		}
 
 		@Override
 		public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
 			// TODO Auto-generated method stub
-			Log.d("tag_send", "发送回调  " + status + " ");
 			super.onReliableWriteCompleted(gatt, status);
 		}
 
@@ -491,7 +488,6 @@ import java.util.UUID;
 		if (linkLossService == null) {
 			showMessage("link loss Alert service not found!"
 					+ mBluetoothGatt.discoverServices());
-			// showToast("没有服务");
 			return false;
 		}
 
@@ -501,7 +497,7 @@ import java.util.UUID;
 					.getCharacteristic(SEND_CHARACTERISTIC_UUID);
 			if (alertLevel == null) {
 				showMessage("link loss Alert Level charateristic not found!");
-				// showToast("没有特征");
+				// showToast("没锟斤拷锟斤拷锟斤拷");
 				return false;
 			}
 			int storedLevel = alertLevel.getWriteType();
@@ -513,7 +509,6 @@ import java.util.UUID;
 		// enableBattNoti(iDevice);
 		alertLevel.setValue(bb);
 		status = mBluetoothGatt.writeCharacteristic(alertLevel);
-		Log.v("tag_send", "发送  " + status + " " + Myhex.buffer2String(bb));
 		return status;
 	}
 
@@ -522,7 +517,6 @@ import java.util.UUID;
 	}
 
 	*//**
-	 * 设置回收发的服务
 	 *//*
 	public void setReceiver(String address) {
 		BluetoothGatt mBluetoothGatt;
@@ -567,8 +561,7 @@ import java.util.UUID;
 	}
 
 	*//**
-	 * 是否正在连接中
-	 * 
+	 *
 	 * @return
 	 *//*
 	public boolean isConnecting(String address) {
