@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zby.chest"
+    
+    android:versionCode="23"
+    android:versionName="1.54" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:name="com.zby.chest.LockApplication"
+        android:icon="@drawable/ic_app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="com.zby.chest.activity.LogoActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+         <activity android:name="com.zby.chest.activity.HelpActivity" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+         <activity android:name="com.zby.chest.activity.HomeActivity" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+        <activity android:name="com.zby.chest.activity.MainActivity" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+        <activity android:name="com.zby.chest.activity.MainTabActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.zby.chest.activity.ScanActivity" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+        <activity android:name="com.zby.chest.activity.SettingActivity" android:screenOrientation="portrait" android:launchMode="singleTask"></activity>
+        <activity android:name="com.zby.chest.activity.SettingDetailActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.zby.chest.activity.SettingPasswordActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.zby.chest.activity.HelpQrcodeActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.zby.chest.activity.HelpLawInfoActivity" android:screenOrientation="portrait"></activity>
+        <activity 
+            
+            android:process=":showimg"
+            android:name="com.zby.chest.activity.HelpShowimgActivity" android:screenOrientation="portrait"></activity>
+        
+        <service android:name="com.zby.chest.bluetooth.BluetoothLeServiceMulp" android:enabled="true">></service>
+    </application>
+    
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+</manifest>

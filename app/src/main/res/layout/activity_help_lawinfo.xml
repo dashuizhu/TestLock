@@ -1,0 +1,35 @@
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    
+    <include layout="@layout/fragment_title"/>
+    
+    <include layout="@layout/fragment_line"/>
+    
+    <ScrollView 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+        
+        
+        <TextView
+            android:id="@+id/textView"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            style="@style/text_small"	
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="8dp"
+            android:textSize="13sp"
+            android:text="@string/law_info_content"
+            ></TextView>
+        
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:background="@drawable/bg_null"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical" >
+
+       
+		    
+		    <LinearLayout 
+		        android:id="@+id/layout_cancel"
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:padding="@dimen/view_padding"
+		        >
+		         <ImageView
+		        android:id="@+id/btn_cancel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:focusable="false"
+		        android:background="@drawable/btn_cancel2"></ImageView>
+		        
+		    </LinearLayout>
+		    
+		    
+		     <TextView
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:paddingTop="@dimen/view_padding"
+		        style="@style/text_normal"
+		        android:text="@string/password_offlock_input"></TextView>
+			
+		    
+		    
+		    
+        
+		
+		<LinearLayout 
+		    android:layout_below="@+id/layout_cancel"
+		    android:id="@+id/layout_edit"
+		    android:layout_height="wrap_content"
+		    android:layout_width="wrap_content"
+		    android:gravity="center"
+		    android:paddingTop="@dimen/activity_horizontal_margin"
+		    android:paddingBottom="@dimen/view_padding"
+		    android:orientation="horizontal">
+		    
+		     <EditText
+            android:id="@+id/editText_input1"
+            style="@style/text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/button_padding"
+            android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		     
+		        <EditText
+            android:id="@+id/editText_input2"
+            style="@style/text_small"
+           	android:padding="@dimen/button_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		        
+		           <EditText
+            android:id="@+id/editText_input3"
+            style="@style/text_small"
+           	android:padding="@dimen/button_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		           
+		              <EditText
+            android:id="@+id/editText_input4"
+            style="@style/text_small"
+           	android:padding="@dimen/button_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		              
+		                 <EditText
+            android:id="@+id/editText_input5"
+            style="@style/text_small"
+           	android:padding="@dimen/button_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		                 
+		                    <EditText
+            android:id="@+id/editText_input6"
+            style="@style/text_small"
+           	android:padding="@dimen/button_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:focusable="false"
+            android:clickable="false"
+            android:maxLength="1"
+            android:background="@drawable/img_psd"
+            android:gravity="center"
+           />
+		    
+		    
+		</LinearLayout>
+
+
+         
+         
+    </RelativeLayout>
+
+</FrameLayout>

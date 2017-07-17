@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SOULZEN</string>
+    
+    
+    
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="setting">Settings</string>
+    <string name="help">Help</string>
+    
+    
+    
+    <string name="binds">Paired Devices</string>
+    <string name="binds_remove">Unpair</string>
+    <string name="lock">lock</string>
+    <string name="lock_mode">Unlock Modes</string>
+    <string name="password_pair">Pairing Password</string>
+    <string name="password_user">Unlock Password</string>
+    <string name="language_change">Language</string>
+    <string name="unlock_auto">Automatically Unlock</string>
+    <string name="unlock_onekey">Slide to Unlock</string>
+    <string name="unlock_password">Password to Unlock</string>
+    
+    <string name="language_zh">中文</string>
+    <string name="language_en">English</string>
+    <string name="language_default">English</string>
+    <string name="unlock_scroll">Slide to Unlock</string>
+    
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="device_found">Available Devices</string>
+
+    
+    <string name="lock_info">User Instruction</string>
+    <string name="installinfo">How to Install</string>
+    <string name="app_info">APP操作说明</string>
+    <string name="version_info">Version Info</string>
+    <string name="law_info">Legal Announcement</string>
+    <string name="qrcode">Share</string>
+    <string name="qrcode_info">Scan to Download</string>
+    <string name="exit">Exit</string>
+    
+    <string name="unlink">Disconnected</string>
+    <string name="lock_off">Unlock</string>
+    
+    <string name="password_input">Enter 6 Digits Passord</string>
+    <string name="password_input2">Enter 6 Digits Passord(Not all 0)</string>
+    <string name="password_pair_input">Pairing Password</string>
+    <string name="password_unlike">Different Passwords</string>
+    <string name="binds_remove_info">Device will be disconnected and delete from homepage when unbounded.</string>
+    
+    <string name="binds_remove_success">Unpaired Successfully</string>
+    <string name="binds_remove_fail">Unpaired Failed</string>
+    
+    <string name="password_pair_modify">Pairing Password Setup</string>
+    <string name="password_user_modify">Unlock Password Setup</string>
+    <string name="password_modify_success">Setup Succeeded!</string>
+    <string name="password_modify_verify_success">Setup Succeeded!</string>
+    <string name="password_input_old">Old Password</string>
+    <string name="password_input_new">New Password</string>
+    <string name="password_input_confirm">Confirm New Password</string>
+    <string name="name_input">Rename</string>
+    <string name="name_tolong">Too Long!</string>
+    <string name="name_empty">Cannot be Empty!</string>
+    <string name="name_format_error">CAN NOT CONTAIN “DP151”</string>
+    <string name="password_error">Wrong Password</string>
+    
+    <string name="low_alert">Low Power, Please Replace Battery!</string>
+    <string name="binds_fail">Paired Devices Exceed Limitation</string>
+    <string name="binds_success">Paired</string>
+    <string name="password_verify_error">Certification Failed</string>
+    <string name="password_verify_success">Correct Password, Pairing Devices</string>
+    
+    <string name="linking">Connecting</string>
+    <string name="link_lost">Disconnected</string>
+    
+    <string name="verify_error">Wrong Password, Remove Devices</string>
+    
+    <string name="dialog_lock_password_info">Unlock Device before Change Unlock Modes</string>
+    <string name="lock_name">Name</string>
+    <string name="first_binds_info">Please Setup Pairing Password!</string>
+    
+    <string name="confirm_delete">Confirm to Cancel?</string>
+    
+    <string name="password_offlock_input">Unlock Password</string>
+    
+    <string name="close_bt">Turn off Bluetooth</string>
+    
+    <string name="law_info_content">\nLEGAL STATEMENT
+\n
+\nSOULZEN is the subsidiary brand under Guangzhou Guub Technology Co.,Ltd (hereinafter referred to as “Guub”) which providing personal secrecy service for various families.
+\nThe following regulars shall apply for all users of SOULZEN, and SOULZEN reserves the right to amend these regulars. The rights of using SOULZEN should be granted following terms by Guub. You please carefully read and fully understand this statement prior to using all services of SOULZEN. If you do not agree to any of the following terms, please stop using this software, by using services of SOULZEN, your behavior will be treated as the entire contents of the statement of recognition. All the behaviors against these regulars, SOULZEN has the right to take action of legal and fair remedy.
+\n
+\nCOPY STATEMENT
+\nAll documents and pictures of SOULZEN herein not be granted to anybody to use. The documents, pictures, data etc therein, is permitted to using of non-commercial or private purpose, do not copy, publish and disseminate. Anybody does not unauthorized (Including but not limited to: copy, disseminate, display, image, upload, download and so on) to use them for out of SOULZEN product range.
+\n
+\nPatent statement
+\nProducts of SOULZEN have been patented, no entity or individual without our permission, shall implement its patent, that is, to make, use, offer to sell, sell or import the patented product, or use the patented process and use, offer to sell, sell or import the patented process, the product obtained directly. Otherwise, SOULZEN shall be subject to legal liabilities under the law.
+\n
+\n
+\nDisclaimer 
+\n
+\nSOULZEN app and its contents are provided for your convenience only. Although SOULZEN has attempted to provide accurate information on this app, it assumes no obligation or responsibility regarding the accuracy of the information whatsoever. 
+\n
+\nSOULZEN may change the contents available on this app or the products mentioned at any time without notice. All information provided on this app is provided on “as is” basis without warranties, guarantees or representations of any kind. For any cases, SOULZEN accepts no responsibility for losses that may arise from the use or citation of information contained on this app. 
+\n
+\nThe introduction of SOULZEN is not as any legal basis, information of products should be subject to contract signed by both of sides.
+\n
+\nSOULZEN would be your partner of personal secrecy but not a safe. SOULZEN is not responsible for any loss of using or dealing it as a safe by anybody.
+\n
+\n
+\nSOULZEN
+\nAPP BLUETOOTH SMART LOCK
+\nGuangzhou Guub Technology Co., Ltd.
+\nAddress: Guub Industrial Park, No.5 Kemulang SOUTH Road,Tianhe District of Guangzhou, China
+\nTel:+86 020 38335088
+\nFax:+86 020 38335099 
+\n
+</string>
+</resources>

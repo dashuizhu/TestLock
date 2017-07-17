@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/fragment_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/bg_main" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include layout="@layout/fragment_line" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                 >
+
+              
+
+                <RelativeLayout
+                    android:id="@+id/layout_lock_name"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lock_name" />
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/textView_lockName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lock" />
+                </RelativeLayout>
+
+                <include layout="@layout/fragment_line_paddingleft" />
+
+              <RelativeLayout
+                    android:id="@+id/layout_lock_mode"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lock_mode" />
+
+                    <TextView
+                        android:id="@+id/textView_lockMode"
+                        style="@style/text_normal_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/unlock_auto" >
+                    </TextView>
+                </RelativeLayout>
+
+                <include layout="@layout/fragment_line_paddingleft" />
+
+               
+                
+                  
+
+                <RelativeLayout
+                    android:id="@+id/layout_password"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password_user" />
+                </RelativeLayout>
+
+                <include layout="@layout/fragment_line_paddingleft" />
+                
+                 <RelativeLayout
+                    android:id="@+id/layout_password_pair"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password_pair" />
+                </RelativeLayout>
+
+                <include layout="@layout/fragment_line_paddingleft" />
+                
+                  <RelativeLayout
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/binds" />
+
+                    <TextView
+                        android:id="@+id/textView_bindCount"
+                        style="@style/text_normal_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" >
+                    </TextView>
+                </RelativeLayout>
+
+                <include layout="@layout/fragment_line_paddingleft" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_binds_remove"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/binds_remove" />
+
+                    <TextView
+                        style="@style/text_normal_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" >
+                    </TextView>
+                </RelativeLayout>
+
+              <!--   <include layout="@layout/fragment_line_paddingleft" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_language"
+                    style="@style/layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language_change" />
+
+                    <TextView
+                        android:id="@+id/textView_language"
+                        style="@style/text_normal_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/language_zh" >
+                    </TextView>
+                </RelativeLayout> -->
+            </LinearLayout>
+
+            <include layout="@layout/fragment_line" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

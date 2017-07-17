@@ -1,0 +1,49 @@
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <include layout="@layout/fragment_title"
+        android:visibility="gone"/>
+    
+    <RelativeLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/view_padding"
+        android:paddingBottom="@dimen/view_padding"
+       >
+        
+        <TextView
+            android:id="@+id/textView_scan"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/text_normal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@color/text_blue"
+            android:text="@string/device_found"
+            android:layout_centerVertical="true"
+            ></TextView>
+        
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_search"
+            ></Button>
+        
+    </RelativeLayout>
+    
+    <ListView 
+        android:id="@+id/listView"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"></ListView>
+
+    
+
+</LinearLayout>

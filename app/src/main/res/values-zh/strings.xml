@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">珍藏家</string>
+    
+    
+    
+    <string name="home">首页</string>
+    <string name="add">添加</string>
+    <string name="setting">设置</string>
+    <string name="help">帮助</string>
+    
+    
+    
+    <string name="binds">已绑定手机</string>
+    <string name="binds_remove">解除绑定</string>
+    <string name="lock">珍藏锁</string>
+    <string name="lock_mode">开锁模式</string>
+    <string name="password_pair">绑定密码</string>
+    <string name="password_user">开锁密码</string>
+    <string name="language_change">语言</string>
+    <string name="unlock_auto">自动开锁</string>
+    <string name="unlock_onekey">滑动开锁</string>
+    <string name="unlock_password">密码开锁</string>
+    
+    <string name="language_zh">中文</string>
+    <string name="language_en">English</string>
+    <string name="language_default">中文</string>
+    <string name="unlock_scroll">向右滑动解锁</string>
+    
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="device_found">搜索到的设备</string>
+
+    
+    <string name="lock_info">使用说明</string>
+    <string name="installinfo">安装说明</string>
+    <string name="app_info">APP操作说明</string>
+    <string name="version_info">版本信息</string>
+    <string name="law_info">法律声明</string>
+    <string name="qrcode">分享APP</string>
+    <string name="qrcode_info">扫描二维码获取APP</string>
+    <string name="exit">退出</string>
+    
+    <string name="unlink">未连接</string>
+    <string name="lock_off">已开锁</string>
+    
+    <string name="password_input">输入六位密码</string>
+    <string name="password_input2">输入六位密码(非全0)</string>
+    <string name="password_pair_input">输入六位绑定密码</string>
+    <string name="password_unlike">两次密码输入不一致</string>
+    <string name="binds_remove_info">解除绑定，会强制断开连接，并删除在首页的显示.</string>
+    
+    <string name="binds_remove_success">解除绑定成功</string>
+    <string name="binds_remove_fail">解除绑定失败</string>
+    
+    <string name="password_pair_modify">修改绑定密码</string>
+    <string name="password_user_modify">修改开锁密码</string>
+    <string name="password_modify_success">修改开锁密码成功</string>
+    <string name="password_modify_verify_success">修改绑定密码成功</string>
+    <string name="password_input_old">输入六位旧密码</string>
+    <string name="password_input_new">输入六位新密码</string>
+    <string name="password_input_confirm">确认六位新密码</string>
+    <string name="name_input">输入名字</string>
+    <string name="name_tolong">名字太长</string>
+    <string name="name_empty">名字不能为空</string>
+    <string name="name_format_error">重命名不能包含“DP151”</string>
+    <string name="password_error">密码错误</string>
+    
+    <string name="low_alert">已处于低压状态，请更换电池!</string>
+    <string name="binds_fail">绑定已经满了</string>
+    <string name="binds_success">绑定成功</string>
+    <string name="password_verify_error">密码认证失败</string>
+    <string name="password_verify_success">密码认证成功,开始绑定设备</string>
+    
+    <string name="linking">开始连接</string>
+    <string name="link_lost">连接断开</string>
+    
+    <string name="verify_error"> 密码认证失败，移除设备</string>
+    
+    <string name="dialog_lock_password_info">请先开锁，再切换该模式</string>
+    <string name="lock_name">名称</string>
+    <string name="first_binds_info">请修改绑定密码！</string>
+    
+    <string name="confirm_delete">确认删除?</string>
+    
+    <string name="password_offlock_input">输入六位开锁密码</string>
+    
+    <string name="close_bt">退出时关闭蓝牙</string>
+    
+    <string name="law_info_content">法律声明
+\r\n
+\n珍藏家为广州国保科技有限公司（以下简称“国保”）为千家万户提供个人私密安全服务的子品牌。以下规则适用于所有使用珍藏家的用户，珍藏家保留随时修改这些规则的权利。使用珍藏家的权利由国保根据下列条款授予。在使用珍藏家各项服务前，请您务必仔细阅读并透彻理解本声明。如果您不同意下列任何条款、请停止使用本软件，但如果您使用珍藏家服务的，您的使用行为将被视为对本声明全部内容的认可。对于违反这些规则的行为，珍藏家有权采取法律和公平的补救措施。
+\n
+\n版权声明
+\n
+\n珍藏家所有的文件或图片等，在此并未作任何授权他人使用。本软件上的文件、图片、资料等仅限于为非商业或个人之目的使用，并且不得复制或公布、传播。未经珍藏家许可，任何人不得擅自(包括但不限于：复制、传播、展示、镜像、上传、下载等)用做非珍藏家产品使用。否则珍藏家将依法追究其法律责任。
+\n
+\n专利声明
+\n
+\n珍藏家产品均已获得专利，任何单位或者个人未经我司许可，都不得实施其专利， 即不得为生产经营目的制造、使用、许诺销售、销售、进口其专利产品，或者使用其专利方法以及使用、许诺销售、销售、进口依照该专利方法直接获得的产品。否则珍藏家将依法追究其法律责任。
+\n
+\n免责声明
+\n
+\n珍藏家APP所载的材料和信息，包括但不限于文本、图片、数据、观点、建议、网页或链路，虽然珍藏家力图在珍藏家APP上提供准确的材料和信息，但珍藏家并不保证这些材料和内容的准确、完整、充分和可靠性，并且明确声明不对这些材料和内容的错误或遗漏承担责任，也不对这些材料和内容作出任何明示或默示的、包括但不限于有关所有权担保、没有侵犯第三方权利和质量的保证。
+\n
+\n珍藏家可以在没有任何通知或提示的情况下随时对本软件上的内容进行修改，为了得到最新版本的信息，请定时访问珍藏家APP。珍藏家在珍藏家APP上所提及的非珍藏家产品或服务仅仅是为了提供相关信息，并不构成对这些产品、服务的认可或推荐。珍藏家并不就网址上提供的任何产品、服务或信息做出任何声明、保证或认可，所有销售的产品和服务应受本公司的销售合同和条款的约束。
+\n
+\n珍藏家有关其产品信息的介绍不作为任何法律依据，产品信息均以产品买卖双方之间签订的买卖合同为准。
+\n
+\n珍藏家APP智能蓝牙锁是一个个人私密安全的配套伴侣，不能用作保险柜使用。任何人因珍藏家或依赖其内容进行使用、交易所引致的损失，珍藏家均不承担任何责任。
+\n
+\n珍藏家
+\nAPP智能蓝牙锁
+\n广州国保科技有限公司
+\n地址：中国广东省广州市天河区柯木塱南路5号国保工业园
+\n电话：+86 020 38335088
+\n传真：+86 020 38335099
+\n        
+    </string>
+</resources>

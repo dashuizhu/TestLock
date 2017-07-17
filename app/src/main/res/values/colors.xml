@@ -1,0 +1,20 @@
+<resources>
+    
+    <color name="text_red">#DA3716</color>
+    
+    <color name="line_between">#CACACA</color>
+    
+    <color name="layout_select">#BABABA</color>
+    
+    <color name="bg_main">#FAFAFA</color>
+    
+    <color name="text_777777">#333333</color>
+    <color name="text_blue">#3B98FA</color>
+    <color name="white">#FFFFFF</color>
+    
+    <color name="blue_dark">#4A70BA</color>
+    
+    <color name="device_1">#879654</color>
+    <color name="device_2">#123456</color>
+    <color name="device_3">#AC1D13</color>
+</resources>

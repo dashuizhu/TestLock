@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:background="@drawable/bg_null"
+    android:orientation="vertical"
+     >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical" >
+
+       
+
+        
+         <TextView
+            android:id="@+id/textView_message"
+            style="@style/text_normal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:text="aaa"
+            />
+         
+	<LinearLayout 
+            android:id="@+id/layout_info"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            >
+	          <TextView 
+	             android:id="@+id/textView_info"
+	             style="@style/text_normal"
+	             android:paddingTop="@dimen/view_padding"
+	             android:paddingBottom="@dimen/activity_horizontal_margin"
+	             android:layout_height="wrap_content"
+	             android:gravity="center"
+	             android:layout_width="match_parent"
+				 android:text="string"          
+	             />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60.0dip"
+            android:gravity="center"
+            android:paddingTop="@dimen/view_padding"
+            android:orientation="horizontal" >
+	          
+              <Button
+                android:id="@+id/btn_confirm"
+                style="@style/btn_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="@dimen/view_padding"
+                android:paddingBottom="@dimen/view_padding"
+                android:layout_weight="1" />
+            
+
+
+            
+        </LinearLayout>
+        
+        
+         
+    </LinearLayout>
+
+</FrameLayout>

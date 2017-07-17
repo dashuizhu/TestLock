@@ -1,0 +1,76 @@
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#ffffff"
+    >
+    
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/view_padding"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/img_logo"></ImageView>
+
+    <LinearLayout 
+        android:id="@+id/layout_back"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="15dp"
+        android:paddingRight="@dimen/button_padding"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+        
+        <TextView 
+            android:id="@+id/textView_back"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/btn_back"
+            android:focusable="false"
+            android:clickable="false"
+            ></TextView>
+        
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:paddingLeft="50dp" 
+        android:paddingRight="50dp"
+        android:gravity="center"
+       style="@style/text_bigPlus"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        ></TextView>
+
+    <LinearLayout
+        android:id="@+id/layout_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/view_padding"
+        android:paddingLeft="@dimen/view_padding"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            />
+    </LinearLayout>
+
+</RelativeLayout>

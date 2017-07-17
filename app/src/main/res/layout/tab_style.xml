@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    
+    android:layout_width="fill_parent"  
+    android:layout_height="60dp"  
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#FFFFFF">    
+    
+    
+   
+     
+     <ImageView 
+         android:id="@+id/tab_image"
+         android:layout_above="@+id/tab_name"
+         android:layout_height="35dp"
+         android:layout_centerHorizontal="true"
+         android:layout_width="35dp"
+         android:focusable="false"
+         android:background="@drawable/btn_home"
+         android:layout_marginTop="3dp"
+         ></ImageView>
+      
+    <TextView 
+        android:id="@+id/tab_name"    
+        style="@style/text_menu"
+        android:layout_width="wrap_content"  
+        android:layout_height="match_parent"  
+        android:layout_weight="1"
+        android:gravity="center"
+        android:focusable="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+       />   
+</LinearLayout>  

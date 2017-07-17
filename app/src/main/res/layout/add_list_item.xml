@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/view_padding"
+        android:paddingBottom="@dimen/view_padding"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+        
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:focusable="false"
+            android:visibility="gone"
+            android:background="@drawable/img_search_item"></ImageView>
+
+        <TextView
+            android:id="@+id/textView_name"
+            style="@style/text_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:singleLine="true"
+            android:text="name"
+            android:ellipsize="end" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView_mac"
+            style="@style/text_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/button_padding"
+            android:paddingRight="@dimen/button_padding"
+            android:visibility="gone"
+            android:ellipsize="end"
+            android:text="mac" >
+        </TextView>
+
+        <ImageView
+            android:id="@+id/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_marginLeft="@dimen/view_padding"
+            android:background="@drawable/btn_add" />
+    </LinearLayout>
+
+</LinearLayout>

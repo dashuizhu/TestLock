@@ -1,0 +1,38 @@
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    
+    <include layout="@layout/fragment_title"/>
+    
+    <include layout="@layout/fragment_line"/>
+    
+    <LinearLayout 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp"
+        android:gravity="center">
+        
+        <ImageView
+            android:id="@+id/imageView_qrcode"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/img_qrcode"></ImageView>
+        
+        <TextView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/text_normal"
+            android:text="@string/qrcode_info"
+            android:layout_marginTop="@dimen/activity_content"
+            ></TextView>
+        
+    </LinearLayout>
+
+</LinearLayout>
