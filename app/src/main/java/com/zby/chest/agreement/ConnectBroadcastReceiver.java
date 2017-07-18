@@ -1,11 +1,5 @@
 package com.zby.chest.agreement;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.zby.chest.activity.BaseActivity;
-
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

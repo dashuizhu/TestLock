@@ -21,18 +21,12 @@ public class CmdPackage {
 		buff[0] = (byte) 0xCC;
 		buff[1] = (byte) 0x01;
 		buff[2] = (byte) 0x01;
-		if (mode == DeviceBean.LockMode_auto) {
-			buff[3] = (byte) 0xE0;
-			buff[4] = (byte) 0xE0;
-		} else {
 			buff[3] = (byte) 0xE1;
 			buff[4] = (byte) 0xE1;
-		}
 		return buff;
 	}
 
 	/**
-	 * @param mode
 	 *            0 自动开锁 1一键开锁
 	 * @return
 	 */
@@ -65,10 +59,6 @@ public class CmdPackage {
 		buff[1] = (byte) 0x10;
 		buff[2] = (byte) 0x01;
 		switch (type) {
-		case DeviceBean.LockMode_auto:
-			buff[3] = (byte) 0xA0;
-			buff[4] = (byte) 0xB1;
-			break;
 		case DeviceBean.LockMode_scroll:
 			buff[3] = (byte) 0xB0;
 			buff[4] = (byte) 0xA1;

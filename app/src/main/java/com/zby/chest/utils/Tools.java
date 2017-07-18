@@ -52,9 +52,6 @@ public class Tools {
 	public static String getModeName(Context mContext,int type) {
 		String name="";
 		switch(type) {
-		case DeviceBean.LockMode_auto:
-			name = mContext.getString(R.string.unlock_auto);
-			break;
 		case DeviceBean.LockMode_scroll:
 			name = mContext.getString(R.string.unlock_scroll);
 			break;

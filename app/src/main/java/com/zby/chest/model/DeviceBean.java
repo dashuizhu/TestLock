@@ -31,7 +31,7 @@ public class DeviceBean {
 	
 	public final  String TAG = DeviceBean.class.getSimpleName();
 
-	public static final int LockMode_auto = 1;
+	//public static final int LockMode_auto = 1;
 	public static final int LockMode_scroll = 2;
 	public static final int LockMode_password = 3;
 	private float downX;
@@ -172,15 +172,6 @@ public class DeviceBean {
 
 	public void setModeType(int modeType) {
 		this.modeType = modeType;
-		if(modeType!=LockMode_auto) {
-			if(bleBin!=null) {
-				bleBin.stopReadThread(getMac());
-			}
-		} else {
-			if(bleBin!=null) {
-				bleBin.startReadThread(getMac());
-			}
-		}
 	}
 	
 	
@@ -270,11 +261,6 @@ public class DeviceBean {
 		int switchRes = 0;
 		//Log.w("tag", "address: " + getMac() + "  " + getModeType());
 		switch (getModeType()) {
-			case DeviceBean.LockMode_auto:
-				drawable = mContext.getResources().getDrawable(
-						R.drawable.btn_lock_auto);
-				switchRes = R.drawable.cb_lock_switch_auto;
-				break;
 			case DeviceBean.LockMode_password:
 				drawable = mContext.getResources().getDrawable(
 						R.drawable.btn_lock_password);

@@ -43,6 +43,9 @@
             android:name="com.zby.chest.activity.HelpShowimgActivity" android:screenOrientation="portrait"></activity>
         
         <service android:name="com.zby.chest.bluetooth.BluetoothLeServiceMulp" android:enabled="true">></service>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c05c9a0ae92fa7ae610c8a23463851f040c6d42c" />
     </application>
     
     <uses-permission android:name="android.permission.BLUETOOTH"/>

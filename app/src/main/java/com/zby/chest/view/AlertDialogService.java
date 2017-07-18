@@ -83,9 +83,6 @@ public class AlertDialogService {
 			case R.id.layout_language_zh:
 				selectType = AppConstants.language_zh;
 				break;
-			case R.id.layout_unlock_auto:
-				selectType = DeviceBean.LockMode_auto;
-				break;
 			case R.id.layout_unlock_scroll:
 				selectType = DeviceBean.LockMode_scroll;
 				break;
@@ -103,7 +100,6 @@ public class AlertDialogService {
 	 * 等待加载框
 	 * 
 	 * @param context
-	 * @param str
 	 * @return
 	 */
 	public static Dialog getLockMode(Context context, int selectModetype,
@@ -121,15 +117,12 @@ public class AlertDialogService {
 		// //----------------------------------------------------
 		// TextView tv = (TextView) v.findViewById(R.id.textView_message);
 		// tv.setText(str);
-		CheckBox cb_auto = (CheckBox) v.findViewById(R.id.checkBox_unlock_auto);
 		CheckBox cb_password = (CheckBox) v
 				.findViewById(R.id.checkBox_unlock_password);
 		CheckBox cb_scroll = (CheckBox) v
 				.findViewById(R.id.checkBox_unlock_scroll);
-		cb_auto.setChecked(selectModetype == DeviceBean.LockMode_auto);
 		cb_password.setChecked(selectModetype == DeviceBean.LockMode_password);
 		cb_scroll.setChecked(selectModetype == DeviceBean.LockMode_scroll);
-		v.findViewById(R.id.layout_unlock_auto).setOnClickListener(listener);
 		v.findViewById(R.id.layout_unlock_password)
 				.setOnClickListener(listener);
 		v.findViewById(R.id.layout_unlock_scroll).setOnClickListener(listener);
@@ -152,7 +145,6 @@ public class AlertDialogService {
 	 * 等待加载框
 	 * 
 	 * @param context
-	 * @param str
 	 * @return
 	 */
 	public static Dialog getLanguage(Context context, int selectType,
@@ -378,7 +370,6 @@ public class AlertDialogService {
 	 * 
 	 * @param context
 	 * @param message
-	 * @param info
 	 * @param clickListener
 	 * @return
 	 */
@@ -446,7 +437,6 @@ public class AlertDialogService {
 	 * 
 	 * @param context
 	 * @param message
-	 * @param info
 	 * @param clickListener
 	 * @return
 	 */
@@ -640,7 +630,6 @@ public class AlertDialogService {
 	 * @param context
 	 * @param message
 	 * @param info
-	 * @param clickListener
 	 * @return
 	 */
 	public static Dialog getAlertDialog(Context context, String message,final String mac,String info,final MyAlertCallback callback) {

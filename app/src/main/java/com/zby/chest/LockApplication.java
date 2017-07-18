@@ -1,27 +1,4 @@
 package com.zby.chest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.wp.activity.CrashHandler;
-
-import com.zby.chest.R;
-import com.zby.chest.activity.ScanActivity;
-import com.zby.chest.agreement.BroadcastString;
-import com.zby.chest.agreement.CmdPackage;
-import com.zby.chest.agreement.ConnectBroadcastReceiver;
-import com.zby.chest.bluetooth.BleBin;
-import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
-import com.zby.chest.model.DeviceBean;
-import com.zby.chest.model.DeviceSqlService;
-import com.zby.chest.utils.Myhex;
-import com.zby.chest.utils.ScreenUtils;
-import com.zby.chest.utils.Tools;
 
 import android.app.Application;
 import android.content.BroadcastReceiver;
@@ -34,6 +11,23 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+import com.crashlytics.android.Crashlytics;
+import com.zby.chest.agreement.BroadcastString;
+import com.zby.chest.agreement.CmdPackage;
+import com.zby.chest.agreement.ConnectBroadcastReceiver;
+import com.zby.chest.bluetooth.BleBin;
+import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
+import com.zby.chest.model.DeviceBean;
+import com.zby.chest.model.DeviceSqlService;
+import com.zby.chest.utils.Myhex;
+import com.zby.chest.utils.Tools;
+import io.fabric.sdk.android.Fabric;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 public class LockApplication extends Application {
@@ -82,7 +76,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 			
 			//AppConstants.scrollDistance = ScreenUtils.dip2px(this, 20);
 			AppConstants.scrollDistance = 10;
-			
+			Fabric.with(this, new Crashlytics());
 		}
 		
 		// 异常处理，不需要处理时注释掉这两句即可！  
@@ -181,24 +175,6 @@ public static final String TAG = LockApplication.class.getSimpleName();
 		compareArray(list);
 	}
 	
-	public void removeDeviceBin(DeviceBean bin) {
-		// TODO Auto-generated method stub
-		DeviceBean db;
-		synchronized (list) {
-			for(int i=0; i < list.size(); i ++) {
-				db = list.get(i);
-				if(bin.getMac().equals(db.getMac())) {
-					list.remove(i);
-					maclist.remove(db.getMac());
-					break;
-				}
-			}
-		}
-		compareArray(list);
-	}
-	
-	
-	
 	public void removeDeviceBin(String mac) {
 		// TODO Auto-generated method stub
 		DeviceBean db;
@@ -253,7 +229,8 @@ public static final String TAG = LockApplication.class.getSimpleName();
 					list.remove(i);
 					maclist.remove(db.getMac());
 					if(showToast) {
-						Toast.makeText(this, db.getName()+getString(R.string.verify_error), 3).show();
+						Toast.makeText(this, db.getName() + getString(R.string.verify_error),
+										Toast.LENGTH_LONG).show();
 					}
 					break;
 				}
@@ -296,7 +273,8 @@ public static final String TAG = LockApplication.class.getSimpleName();
 					list.remove(i);
 					maclist.remove(db.getMac());
 					if(showToast) {
-						Toast.makeText(this, db.getName()+getString(R.string.binds_fail), 3).show();
+						Toast.makeText(this, db.getName() + getString(R.string.binds_fail),
+										Toast.LENGTH_LONG).show();
 					}
 					break;
 				}
@@ -321,23 +299,6 @@ public static final String TAG = LockApplication.class.getSimpleName();
 					//list.remove(i);
 					//list.add(i, db);
 					return db;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public DeviceBean getDeviceBeanAutoMode(String mac) {
-		DeviceBean db;
-		synchronized (list) {
-			for(int i=0; i < list.size(); i ++) {
-				db = list.get(i);
-				if(db.getModeType()==DeviceBean.LockMode_auto) {
-					if(mac.equals(db.getMac())) {
-						//list.remove(i);
-						//list.add(i, db);
-						return db;
-					}
 				}
 			}
 		}
@@ -542,9 +503,6 @@ public static final String TAG = LockApplication.class.getSimpleName();
                             }
 							//unlockSet.remove(mac);
 						}
-						if(dbin!=null && dbin.getModeType() == DeviceBean.LockMode_auto) {
-							mBluetoothLeService.startReadRssiThread(dbin.getMac());
-						}
 					}
 				}).start();
 				// Show all the supported services and characteristics on the
@@ -564,19 +522,6 @@ public static final String TAG = LockApplication.class.getSimpleName();
 //					handler.sendMessage(msg);
 				}
 			} else if(BluetoothLeServiceMulp.ACTION_RSSI_ACTION.equals(action)) {
-				DeviceBean dbin = getDeviceBeanAutoMode(mac);
-				int rssi = intent.getIntExtra("rssi", 100);
-				if(dbin!=null) {
-					Log.d("tag", "接受"+dbin.getName()+ "  rssi:"+ rssi);
-					if(rssi<=-100) {
-						//dbin.stopConnect();
-					} else if(rssi>=-85) {
-						if(!dbin.isOnOff() && dbin.getModeType()==DeviceBean.LockMode_auto) {
-							Log.d("tag", "接受"+dbin.getName()+ "  rssi:"+ rssi + "发送");
-							dbin.write(CmdPackage.getLockOff(1));
-						}
-					}
-				}
 			}
 		}
 	};

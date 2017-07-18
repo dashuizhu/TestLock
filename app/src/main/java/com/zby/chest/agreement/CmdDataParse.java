@@ -83,12 +83,7 @@ public class CmdDataParse implements DataProtocolInterface{
 			 dbin.setModeType(MyByte.byteToInt(buffer[2]));
 			 dbin.setOnOff(buffer[3]==(0x11));
 			 type = type_status;
-		 }  else if(isEquals(str,"0xCC 0x01 0x01 0x0E 0x0E")) {//自动开锁成功
-			if(dbin.getModeType()== DeviceBean.LockMode_auto) {
-				dbin.setOnOff(true);
-				type= type_lock_onoff;
-			}
-		} else if( isEquals(str,"0xCC 0x01 0x01 0x1E 0x1E")) {//一键开锁成功 
+		 } else if( isEquals(str,"0xCC 0x01 0x01 0x1E 0x1E")) {//一键开锁成功
 			if(dbin.getModeType() == DeviceBean.LockMode_scroll) {
 				dbin.setOnOff(true);
 				type= type_lock_onoff;
@@ -110,10 +105,8 @@ public class CmdDataParse implements DataProtocolInterface{
 			type =type_password_unlock_success;
 		} else if(isEquals(str,"0xCC 0x03 0x01 0x5E 0x5C")) {//滑动解锁密码修改失败
 			type = type_password_error;
-		} else if(isEquals(str,"0xCC 0x10 0x01 0x0A 0x1B")) {//自动开锁模式
-			dbin.setModeType(DeviceBean.LockMode_auto);
-			type=type_lock_mode;
-		} else if(isEquals(str,"0xCC 0x10 0x01 0x0B 0x1A")) {//一键开锁设置成功
+		}
+		else if(isEquals(str,"0xCC 0x10 0x01 0x0B 0x1A")) {//一键开锁设置成功
 			dbin.setModeType(DeviceBean.LockMode_scroll);
 			type=type_lock_mode;
 		} else if(isEquals(str,"0xCC 0x10 0x01 0x0D 0x1C")) {//滑动密码开锁模式设置成功
