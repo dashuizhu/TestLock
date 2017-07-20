@@ -28,7 +28,10 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import java.util.concurrent.TimeUnit;
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
 
 public class LockApplication extends Application {
 	
@@ -47,11 +50,21 @@ public static final String TAG = LockApplication.class.getSimpleName();
 	//private Map<String,DeviceBean> unlockSet =new HashMap<String,DeviceBean>();
 	
 	private boolean isRegister = false;
-	
+
+	/**
+	 * 上次操作时间
+	 */
+	public static long mLastOptionTime = 0L;
+
+	/**
+	 * 自动断开
+	 */
+	private Subscription mLostSubscription;
+
 	 /**
 		 * 协议数据 广播接受
 		 */
-		private ConnectBroadcastReceiver cmdreceiver;
+	 private ConnectBroadcastReceiver cmdreceiver;
 		
 	
 
@@ -90,6 +103,8 @@ public static final String TAG = LockApplication.class.getSimpleName();
 //	     */
 //		//发送错误报告到服务器 
 //		crashHandler.sendPreviousReportsToServer();
+		mLastOptionTime = System.currentTimeMillis();
+		startAutoLostBlueSubscripiton();
 		super.onCreate();
 	}
 	
@@ -109,6 +124,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 			mBluetoothLeService.stopReadThread();
 			mBluetoothLeService.closeAll();
 		}
+		unSubscription();
 		super.onTerminate();
 	}
 	
@@ -346,7 +362,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 	 * 
 	 * @param list
 	 */
-	public synchronized List<DeviceBean>  compareArray(List<DeviceBean> list) {
+	public List<DeviceBean>  compareArray(List<DeviceBean> list) {
 		synchronized (list) {
 			Collections.sort(list, mComparator);
 		}
@@ -552,9 +568,35 @@ public static final String TAG = LockApplication.class.getSimpleName();
 		return maclist;
 	}
 
+	/**
+	 * 5分钟不操作 自动断开蓝牙
+	 */
+	private void startAutoLostBlueSubscripiton() {
+		if (mLostSubscription == null) {
+			mLostSubscription = Observable.interval(5, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+				@Override public void call(Long aLong) {
+					long delayTime = System.currentTimeMillis() - mLastOptionTime;
+					if (delayTime > AppConstants.auto_lost_time) {
+						mBluetoothLeService.closeAll();
+						mLastOptionTime = System.currentTimeMillis();
+					}
+				}
+			}, new Action1<Throwable>() {
+				@Override public void call(Throwable throwable) {
+					throwable.printStackTrace();
+				}
+			});
+		}
+	}
 
-
-
+	private void unSubscription(){
+		if (mLostSubscription != null) {
+			if (!mLostSubscription.isUnsubscribed()) {
+				mLostSubscription.unsubscribe();
+			}
+			mLostSubscription = null;
+		}
+	}
 
 
 

@@ -67,6 +67,7 @@ public class HomeActivity extends BaseActivity {
 	private Set<String> showDialogSet = new HashSet<String>();
 	
 	private final int Activity_setting_detail = 11;
+	private int mLastPosition;
 	
 
 	protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class HomeActivity extends BaseActivity {
 		setContentView(R.layout.activity_home);
 		initViews();
 		initHandler();
-		actvivityname = " home";
 	};
 	
 	private void initViews() {
@@ -118,11 +118,18 @@ public class HomeActivity extends BaseActivity {
 			@Override
 			public void onDeviceScroll(DeviceBean dbin) {
 				// TODO Auto-generated method stub
-				if(dbin!=null  && dbin.getModeType() == DeviceBean.LockMode_scroll) {
-					//if(!dbin.isOnOff()) {
+				if(dbin!=null ) {
+					if (dbin.getModeType() == DeviceBean.LockMode_scroll) {
+						//if(!dbin.isOnOff()) {
 						dbin.write(CmdPackage.getLockOff(DeviceBean.LockMode_scroll));
-					//}
-					Log.d(TAG, "deviceListener.onScroll " + dbin.getName() + " " + dbin.getModeType());
+						//}
+						Log.d(TAG, "deviceListener.onScroll " + dbin.getName() + " " + dbin.getModeType());
+					} else if (dbin.getModeType() == DeviceBean.LockMode_password) {
+						//密码开锁15秒内 ，可以滑动解锁
+						if (dbin.isPasswordLockTimeAllow()) {
+							dbin.write(CmdPackage.getLockOff(DeviceBean.LockMode_scroll));
+						}
+					}
 				}
 			}
 
@@ -283,6 +290,8 @@ public class HomeActivity extends BaseActivity {
 									delService = new DeviceSqlService(HomeActivity.this);
 								}
 								selectDbin.setPassword(selectpassword);
+								//记录密码开锁时间
+								selectDbin.setLastPasswordTime(System.currentTimeMillis());
 								delService.insert(selectDbin);
 								break;
 							case CmdDataParse.type_password_verify_error://配对密码错误

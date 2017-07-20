@@ -7,8 +7,9 @@ public class AppString {
 	public static final String language="language";
 	
 	public static final String exit_closeBT = "closeBT";
+  public static final String KEY_ADMIN_PASSWORD = "adminPassword";
 
-	/**
+  /**
 	 * 是否是第一次打开应用
 	 */
 	public static String firstLauncher = "firstLauncher";

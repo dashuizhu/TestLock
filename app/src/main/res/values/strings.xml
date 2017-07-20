@@ -48,6 +48,7 @@
     <string name="password_input">Enter 6 Digits Passord</string>
     <string name="password_input2">Enter 6 Digits Passord(Not all 0)</string>
     <string name="password_pair_input">Pairing Password</string>
+    <string name="password_admin_input">Admin Password</string>
     <string name="password_unlike">Different Passwords</string>
     <string name="binds_remove_info">Device will be disconnected and delete from homepage when unbounded.</string>
     
@@ -58,6 +59,7 @@
     <string name="password_user_modify">Unlock Password Setup</string>
     <string name="password_modify_success">Setup Succeeded!</string>
     <string name="password_modify_verify_success">Setup Succeeded!</string>
+    <string name="password_modify_admin_success">Setup Succeeded!</string>
     <string name="password_input_old">Old Password</string>
     <string name="password_input_new">New Password</string>
     <string name="password_input_confirm">Confirm New Password</string>
@@ -119,4 +121,6 @@
 \nFax:+86 020 38335099 
 \n
 </string>
+    <string name="label_password_admin">Admin Password Setup</string>
+    <string name="password_admin_modify">Admin Password Setup</string>
 </resources>

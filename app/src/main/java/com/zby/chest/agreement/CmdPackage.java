@@ -1,5 +1,6 @@
 package com.zby.chest.agreement;
 
+import com.zby.chest.utils.CrcUtils;
 import java.io.UnsupportedEncodingException;
 
 import android.bluetooth.BluetoothClass.Device;
@@ -45,11 +46,14 @@ public class CmdPackage {
 		buff[0] = (byte) 0xCC;
 		buff[1] = (byte) 0x03;
 		buff[2] = (byte) 0x0C;
-		buff[buff.length - 1] = (byte) 0x0F;
+		//buff[buff.length - 1] = (byte) 0x0F;
 		byte[] oldPsd = MyByte.string2bufferO(password);
 		byte[] newPsd = MyByte.string2bufferO(newPassword);
 		System.arraycopy(oldPsd, 0, buff, 3, oldPsd.length);
 		System.arraycopy(newPsd, 0, buff, 3 + oldPsd.length, newPsd.length);
+
+		byte crc = CrcUtils.calcCrc8(buff, 1, buff.length-2);
+		buff[buff.length - 1] = crc;
 		return buff;
 	}
 
@@ -133,7 +137,9 @@ public class CmdPackage {
 		buffer[2] = (byte) 0x06;
 		buffer[9] = (byte) 0x03;
 		byte[] passBuff = MyByte.string2bufferO(password);
-		System.arraycopy(passBuff, 0, buffer, 3, passBuff.length);
+		//System.arraycopy(passBuff, 0, buffer, 3, passBuff.length);
+		//byte crc =CrcUtils.calcCrc8(buffer, 1, buffer.length-2);
+		//buffer[9] = crc;
 		return buffer;
 	}
 
@@ -175,5 +181,40 @@ public class CmdPackage {
 		buff[3] = (byte) 0x13;
 		buff[4] = (byte) 0x14;
 		return buff;
+	}
+
+	/**
+	 * 获得管理员密码
+	 * @param password
+	 * @param newPassword
+	 * @return
+	 */
+  public static byte[] getPasswordAdminChange(String password, String newPassword) {
+	  byte[] buff = new byte[4 + password.length() + newPassword.length()];
+	  buff[0] = (byte) 0xCC;
+	  buff[1] = (byte) 0x50;
+	  buff[2] = (byte) 0x0C;
+	  buff[buff.length - 1] = (byte) 0x0F;
+	  byte[] oldPsd = MyByte.string2bufferO(password);
+	  byte[] newPsd = MyByte.string2bufferO(newPassword);
+	  System.arraycopy(oldPsd, 0, buff, 3, oldPsd.length);
+	  System.arraycopy(newPsd, 0, buff, 3 + oldPsd.length, newPsd.length);
+
+	  return buff;
+  }
+
+	/**
+	 * 认证管理员密码
+	 * @return
+	 */
+	public static byte[] verifyAdminPassword(String adminPsd) {
+		byte[] buffer = new byte[10];
+		buffer[0] = (byte) 0xCC;
+		buffer[1] = (byte) 0x30;
+		buffer[2] = (byte) 0x06;
+		buffer[9] = (byte) 0x00;
+		byte[] macBuff = Myhex.hexStringToByte(adminPsd);
+		System.arraycopy(macBuff, 0, buffer, 3, macBuff.length);
+		return buffer;
 	}
 }

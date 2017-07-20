@@ -1,7 +1,5 @@
 package com.zby.chest.activity;
 
-import java.io.UnsupportedEncodingException;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -11,13 +9,12 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.jungly.gridpasswordview.GridPasswordView;
 import com.zby.chest.AppConstants;
 import com.zby.chest.AppString;
 import com.zby.chest.DeviceManager;
@@ -26,7 +23,6 @@ import com.zby.chest.R;
 import com.zby.chest.agreement.BroadcastString;
 import com.zby.chest.agreement.CmdDataParse;
 import com.zby.chest.agreement.CmdPackage;
-import com.zby.chest.agreement.ConnectBroadcastReceiver;
 import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
 import com.zby.chest.model.DeviceBean;
 import com.zby.chest.model.DeviceSqlService;
@@ -35,6 +31,7 @@ import com.zby.chest.utils.Tools;
 import com.zby.chest.view.AlertDialogService;
 import com.zby.chest.view.AlertDialogService.SelectCallback;
 import com.zby.chest.view.AlertDialogService.onMyInputListener;
+import java.io.UnsupportedEncodingException;
 
 public class SettingDetailActivity extends BaseActivity {
 	
@@ -42,6 +39,12 @@ public class SettingDetailActivity extends BaseActivity {
 	
 	private DeviceBean dbin;
 	private RelativeLayout layout_password;
+	private RelativeLayout layout_lockName;
+	private RelativeLayout layout_lockMode;
+	private RelativeLayout layout_passwordPair;
+	private RelativeLayout layout_passwordAdmin;
+
+
 	private DeviceSqlService deviceSql;
 	private SetupData mSetupData;
 	
@@ -54,6 +57,9 @@ public class SettingDetailActivity extends BaseActivity {
 	private Dialog dialog;
 	
 	private LockApplication mApp;
+	private GridPasswordView et_grv;
+
+
 
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,9 +67,8 @@ public class SettingDetailActivity extends BaseActivity {
 		initViews();
 		initData();
 		initHandler();
-		actvivityname = "setting detail";
 		registerReceiver(br, new IntentFilter(BluetoothLeServiceMulp.ACTION_GATT_DISCONNECTED));
-	};
+	}
 
 	private void initViews() {
 		initBaseViews(this);
@@ -78,13 +83,22 @@ public class SettingDetailActivity extends BaseActivity {
 		tv_lockMode = (TextView) findViewById(R.id.textView_lockMode);
 		tv_lockCount = (TextView) findViewById(R.id.textView_bindCount);
 		layout_password = (RelativeLayout) (findViewById(R.id.layout_password));
-		layout_password.setEnabled(dbin.getModeType()==DeviceBean.LockMode_password);
+		layout_lockName = (RelativeLayout) (findViewById(R.id.layout_lock_name));
+		layout_lockMode = (RelativeLayout) (findViewById(R.id.layout_lock_mode));
+		layout_passwordPair = (RelativeLayout) (findViewById(R.id.layout_password_pair));
+		layout_passwordAdmin = (RelativeLayout) (findViewById(R.id.layout_password_admin));
+
+		isAdminSuccess(false);
+
+
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				dbin.writeNoresponse(CmdPackage.verifyMac(Tools.getMacAddress(SettingDetailActivity.this)));
+				//变成验证管理员密码
+				String admin = SetupData.getSetupData(SettingDetailActivity.this).read(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), AppConstants.DEFAULT_ADMIN_PASSWORD);
+				dbin.writeNoresponse(CmdPackage.verifyAdminPassword(admin));
 			}
 		}).start();
 	}
@@ -140,6 +154,14 @@ public class SettingDetailActivity extends BaseActivity {
 						tv_lockName.setText(dbin.getName());
 						setResult(Activity.RESULT_OK);
 						break;
+					case CmdDataParse.type_password_admin_success:
+						isAdminSuccess(true);
+						String admin = et_grv.getPassWord();
+						SetupData.getSetupData(SettingDetailActivity.this).save(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), admin);
+							break;
+					case CmdDataParse.type_password_admin_fail:
+						showAdminPasswordDialog();
+							break;
 					}
 					
 				case handler_adapter:
@@ -245,6 +267,11 @@ public class SettingDetailActivity extends BaseActivity {
 			intent.putExtra("type", 0);//0表示修改配对密码  
 			startActivity(intent);
 			break;
+		case R.id.layout_password_admin://管理员密码
+			intent = new Intent(this, SettingPasswordActivity.class);
+			intent.putExtra("type", SettingPasswordActivity.TYPE_PASSWORD_ADMIN);//1表示修改用户密码
+			startActivity(intent);
+				break;
 		case R.id.layout_language:
 			if(mSetupData==null) {
 				mSetupData = SetupData.getSetupData(SettingDetailActivity.this);
@@ -305,7 +332,54 @@ public class SettingDetailActivity extends BaseActivity {
 				}
 			}
 	}};
-	
 
+
+	private void isAdminSuccess(boolean isSuccess) {
+		layout_lockMode.setEnabled(isSuccess);
+		layout_lockName.setEnabled(isSuccess);
+		layout_passwordPair.setEnabled(isSuccess);
+		layout_passwordAdmin.setEnabled(isSuccess);
+		layout_password.setEnabled(isSuccess && dbin.getModeType()==DeviceBean.LockMode_password);
+	}
+
+	private void showAdminPasswordDialog() {
+		disDialog();
+		dialog = AlertDialogService.getInputDialog2(SettingDetailActivity.this,"", getString(R.string.password_pair_input), new AlertDialogService.onMyInputListener2() {
+
+			@Override
+			public void onClick(Dialog d, String password,
+							GridPasswordView grv) {
+				// TODO Auto-generated method stub
+				//et_input = tv;
+				et_grv = grv;
+				if(password.length()==6) {
+					dbin.setPairPassword(password);
+					dbin.write(CmdPackage.verifyPassword(password));
+				} else {
+					showToast(R.string.password_input);
+				}
+			}
+
+			@Override
+			public void onCancel(Dialog d) {
+				// TODO Auto-generated method stub
+				if(d!=null && d.isShowing()) {
+					d.cancel();
+				}
+				if(dbin!=null) {
+					dbin.stopConnect();
+				}
+			}
+		});
+		dialog.show();
+	}
+
+	private void disDialog() {
+		if(dialog!=null) {
+			if(dialog.isShowing()) {
+				dialog.dismiss();
+			}
+		}
+	}
 
 }

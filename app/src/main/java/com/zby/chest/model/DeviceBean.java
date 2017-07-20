@@ -61,6 +61,11 @@ public class DeviceBean {
 	
 	private ConnectionInterface bleBin;
 	private CmdDataParse cmdParse;
+
+	/**
+	 * 上次密码开锁时间
+	 */
+	private long mLastPasswordTime;
 	
 
 	public int getId() {
@@ -472,6 +477,20 @@ public class DeviceBean {
 		
 	};
 
+	public long getLastPasswordTime() {
+		return mLastPasswordTime;
+	}
 
+	public void setLastPasswordTime(long lastPasswordTime) {
+		mLastPasswordTime = lastPasswordTime;
+	}
 
+	/**
+	 * 是否密码开锁 15秒内
+	 * @return
+	 */
+	public boolean isPasswordLockTimeAllow() {
+		long delayTime = System.currentTimeMillis() - mLastPasswordTime;
+		return delayTime <15 *1000;
+	}
 }

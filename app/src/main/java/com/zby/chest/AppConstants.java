@@ -4,13 +4,13 @@ import org.apache.http.util.LangUtils;
 
 public class AppConstants {
 
-	/**
+  public static final String DEFAULT_ADMIN_PASSWORD = "123456";
+  /**
 	 * 只殴打输入长度
 	 */
 	public static int password_length = 6;
 	public static int name_length = 18;
-	
-	
+
 	/**
 	 * 滑动关锁  距离
 	 */
@@ -53,4 +53,8 @@ public class AppConstants {
 	 * 长按时间
 	 */
 	public static final int longClickTime = 1000;
+	/**
+	 * 不操作自动断开
+	 */
+	public static long auto_lost_time = 5 * 60 * 1000;
 }

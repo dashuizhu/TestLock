@@ -63,7 +63,11 @@ public class CmdDataParse implements DataProtocolInterface{
 	 * 获得状态
 	 */
 	public static final int type_status = 116;
-	
+	public static final int type_password_admin_success = 117;
+	public static final int type_password_admin_fail = 118;
+	public static final int type_password_admin_modify_success = 119;
+	public static final int type_password_admin_modify_fail = 120;
+
 	private DeviceBean dbin;
 	
 	private Context mContext;
@@ -132,22 +136,31 @@ public class CmdDataParse implements DataProtocolInterface{
 			type = type_password_modify_success;
 		}  else if(isEquals(str, "0xDD  02 01 00 03")){//密码错误
 			type = type_password_error;
-		}else if(buffer[0] == (byte) 0xAA && buffer[1] ==(byte) 0x01) {//绑定结果
-			int count = buffer[3];
-			if(count>3) {
-				dbin.setBindCount(3);
-				type = type_binds_fail;
-			} else if(count <1) {
-				dbin.setBindCount(count);
-				type = type_binds_fail;
-			} else {
-				dbin.setBindCount(count);
-				type = type_binds_success;
-			}
-		} 
+		}
+		//else if(buffer[0] == (byte) 0xAA && buffer[1] ==(byte) 0x01) {//绑定结果
+		//	int count = buffer[3];
+		//	if(count>3) {
+		//		dbin.setBindCount(3);
+		//		type = type_binds_fail;
+		//	} else if(count <1) {
+		//		dbin.setBindCount(count);
+		//		type = type_binds_fail;
+		//	} else {
+		//		dbin.setBindCount(count);
+		//		type = type_binds_success;
+		//	}
+		//}
 		else if(isEquals(str, "0xCC 50 00 00 01")) {
 			type= type_name;
-		}
+		} else if (isEquals(str, "0xCC 30 01 8E")) {//管理员对比正确
+			 type = type_password_admin_success;
+		 } else if (isEquals(str, "0xCC 30 01 9E")) {//管理员对比错误
+			 type = type_password_admin_fail;
+		 }else if (isEquals(str, "0xCC A0 01 6E")) {//管理员修改成功
+			 type = type_password_admin_modify_success;
+		 }else if (isEquals(str, "0xCC B0 01 7E")) {//管理员修改失败
+			 type = type_password_admin_modify_fail;
+		 }
 		if(type>0) {
 			handlerSendBroadcast(type);
 		}

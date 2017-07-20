@@ -55,6 +55,13 @@ public class SetupData {
 		str = sp.getString(key, "");		
 		return str;
 	}
+
+	public  String read(String key, String defaultStr) {
+		String str = null;
+		str = sp.getString(key, defaultStr);
+		return str;
+	}
+
 	public  double readDouble(String key) {
 		float str = 0.0f;
 		str = sp.getFloat(key,  0.0f);

@@ -1,30 +1,5 @@
 package com.zby.chest.activity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.jungly.gridpasswordview.GridPasswordView;
-import com.zby.chest.AppString;
-import com.zby.chest.DeviceManager;
-import com.zby.chest.LockApplication;
-import com.zby.chest.R;
-import com.zby.chest.adapter.BluetoothDeviceAdapter;
-import com.zby.chest.adapter.BluetoothDeviceAdapter.MyClickListener;
-import com.zby.chest.agreement.BroadcastString;
-import com.zby.chest.agreement.CmdDataParse;
-import com.zby.chest.agreement.CmdPackage;
-import com.zby.chest.agreement.ConnectBroadcastReceiver;
-import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
-import com.zby.chest.model.DeviceBean;
-import com.zby.chest.model.DeviceBlueBean;
-import com.zby.chest.utils.Myhex;
-import com.zby.chest.utils.Tools;
-import com.zby.chest.view.AlertDialogService;
-import com.zby.chest.view.AlertDialogService.onMyInputListener;
-import com.zby.chest.view.AlertDialogService.onMyInputListener2;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -41,7 +16,26 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.jungly.gridpasswordview.GridPasswordView;
+import com.zby.chest.AppString;
+import com.zby.chest.DeviceManager;
+import com.zby.chest.LockApplication;
+import com.zby.chest.R;
+import com.zby.chest.adapter.BluetoothDeviceAdapter;
+import com.zby.chest.agreement.BroadcastString;
+import com.zby.chest.agreement.CmdDataParse;
+import com.zby.chest.agreement.CmdPackage;
+import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
+import com.zby.chest.model.DeviceBean;
+import com.zby.chest.model.DeviceBlueBean;
+import com.zby.chest.utils.Myhex;
+import com.zby.chest.utils.Tools;
+import com.zby.chest.view.AlertDialogService;
+import com.zby.chest.view.AlertDialogService.onMyInputListener2;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ScanActivity extends BaseActivity {
 	
@@ -141,57 +135,57 @@ public class ScanActivity extends BaseActivity {
 				case BroadcastString.Broad_Cmd:
 					String mac;
 					switch(msg.arg1) {
-					case CmdDataParse.type_binds_success:
-						mac  = (String) msg.obj;
-						if(dbin==null) {
-							Log.d(TAG, " no select deviceBin ");
-							return;
-						}
-						if(dbin.getMac().equals(mac)) {
-							showToast(R.string.binds_success);
-							app.addDeviceBin(dbin);
-							//绑定陈宫后，从这个记录里删除
-							removeDevice(dbin.getMac());
-							macList.add(dbin.getMac());
-							if(dialog!=null && dialog.isShowing()) {
-								dialog.dismiss();
-							}
-							if(dbin.getPairPassword()!=null && dbin.getPairPassword().equals("000000")) {
-//								AlertDialogService.getFirstBindsDialog(ScanActivity.this,"", getString(R.string.first_binds_info), new onMyInputListener() {						
-//									@Override
-//									public void onClick(Dialog d, EditText tv) {
-//										// TODO Auto-generated method stub
-										DeviceManager.getInstance().setDbin(dbin);
-										Intent intent = new Intent(ScanActivity.this, SettingPasswordActivity.class);
-											intent.putExtra("type", 0);//0表示修改配对密码  
-											intent.putExtra("showBack", false);
-											startActivityForResult(intent, activity_setting);
-											showToast(R.string.first_binds_info);
-//									}
-//								}).show();
-							} else {//绑定成功直接条首页
-									Intent intent = new Intent(AppString.ACTION_VIEWPAGER);
-									intent.putExtra("item", 0);
-									sendBroadcast(intent);
-							}
-						}
-						break;
-					case CmdDataParse.type_binds_fail:
-						mac  = (String) msg.obj;
-						if(dbin==null) {
-							Log.d(TAG, " no select deviceBin ");
-							return;
-						}
-						if(dbin.getMac().equals(mac)) {
-							//Toast.makeText(ScanActivity.this, R.string.binds_fail, 3).show();
-							showToast(R.string.binds_fail);
-							dbin.closeConnect();
-							dbin.stopConnect();
-							if(dialog!=null && dialog.isShowing()) {
-								dialog.dismiss();
-							}
-						}	
-						break;
+						//					case CmdDataParse.type_binds_success:
+						//						mac  = (String) msg.obj;
+						//						if(dbin==null) {
+						//							Log.d(TAG, " no select deviceBin ");
+						//							return;
+						//						}
+						//						if(dbin.getMac().equals(mac)) {
+						//							showToast(R.string.binds_success);
+						//							app.addDeviceBin(dbin);
+						//							//绑定陈宫后，从这个记录里删除
+						//							removeDevice(dbin.getMac());
+						//							macList.add(dbin.getMac());
+						//							if(dialog!=null && dialog.isShowing()) {
+						//								dialog.dismiss();
+						//							}
+						//							if(dbin.getPairPassword()!=null && dbin.getPairPassword().equals("000000")) {
+						////								AlertDialogService.getFirstBindsDialog(ScanActivity.this,"", getString(R.string.first_binds_info), new onMyInputListener() {
+						////									@Override
+						////									public void onClick(Dialog d, EditText tv) {
+						////										// TODO Auto-generated method stub
+						//										DeviceManager.getInstance().setDbin(dbin);
+						//										Intent intent = new Intent(ScanActivity.this, SettingPasswordActivity.class);
+						//											intent.putExtra("type", 0);//0表示修改配对密码
+						//											intent.putExtra("showBack", false);
+						//											startActivityForResult(intent, activity_setting);
+						//											showToast(R.string.first_binds_info);
+						////									}
+						////								}).show();
+						//							} else {//绑定成功直接条首页
+						//									Intent intent = new Intent(AppString.ACTION_VIEWPAGER);
+						//									intent.putExtra("item", 0);
+						//									sendBroadcast(intent);
+						//							}
+						//						}
+						//						break;
+						//					case CmdDataParse.type_binds_fail:
+						//						mac  = (String) msg.obj;
+						//						if(dbin==null) {
+						//							Log.d(TAG, " no select deviceBin ");
+						//							return;
+						//						}
+						//						if(dbin.getMac().equals(mac)) {
+						//							//Toast.makeText(ScanActivity.this, R.string.binds_fail, 3).show();
+						//							showToast(R.string.binds_fail);
+						//							dbin.closeConnect();
+						//							dbin.stopConnect();
+						//							if(dialog!=null && dialog.isShowing()) {
+						//								dialog.dismiss();
+						//							}
+						//						}
+						//						break;
 					case CmdDataParse.type_password_verify_error:
 						mac  = (String) msg.obj;
 						if(dbin==null) {
@@ -218,23 +212,50 @@ public class ScanActivity extends BaseActivity {
 						}
 						if(dbin.getMac().equals(mac)) {
 							showToast(R.string.password_verify_success);
-							new Thread(new Runnable() {
-								
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									try {
-										//发送密码 的回执需要 1秒只发一次数据， 这里等待回执后在发送。
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-									if(dbin !=null) {
-										dbin.write(CmdPackage.verifyMac(Tools.getMacAddress(ScanActivity.this)));
-									}
+							//new Thread(new Runnable() {
+							//
+							//	@Override
+							//	public void run() {
+							//		// TODO Auto-generated method stub
+							//		try {
+							//			//发送密码 的回执需要 1秒只发一次数据， 这里等待回执后在发送。
+							//			Thread.sleep(1000);
+							//		} catch (InterruptedException e) {
+							//			// TODO Auto-generated catch block
+							//			e.printStackTrace();
+							//		}
+							//		if(dbin !=null) {
+							//			dbin.write(CmdPackage.verifyMac(Tools.getMacAddress(ScanActivity.this)));
+							//		}
+							//	}
+							//}).start();
+							app.addDeviceBin(dbin);
+							//绑定陈宫后，从这个记录里删除
+							removeDevice(dbin.getMac());
+							macList.add(dbin.getMac());
+							if (dialog != null && dialog.isShowing()) {
+								dialog.dismiss();
 								}
-							}).start();
+							if (dbin.getPairPassword() != null && dbin.getPairPassword()
+											.equals("000000")) {
+								//								AlertDialogService.getFirstBindsDialog(ScanActivity.this,"", getString(R.string.first_binds_info), new onMyInputListener() {
+								//									@Override
+								//									public void onClick(Dialog d, EditText tv) {
+								//										// TODO Auto-generated method stub
+								DeviceManager.getInstance().setDbin(dbin);
+								Intent intent = new Intent(ScanActivity.this,
+												SettingPasswordActivity.class);
+								intent.putExtra("type", 0);//0表示修改配对密码
+								intent.putExtra("showBack", false);
+								startActivityForResult(intent, activity_setting);
+								showToast(R.string.first_binds_info);
+								//									}
+								//								}).show();
+							} else {//绑定成功直接条首页
+								Intent intent = new Intent(AppString.ACTION_VIEWPAGER);
+								intent.putExtra("item", 0);
+								sendBroadcast(intent);
+							}
 						}
 						break;
 					}

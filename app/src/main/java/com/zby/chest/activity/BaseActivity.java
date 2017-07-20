@@ -1,6 +1,7 @@
 package com.zby.chest.activity;
 
 
+import android.view.MotionEvent;
 import com.zby.chest.AppString;
 import com.zby.chest.LockApplication;
 import com.zby.chest.R;
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.concurrent.locks.Lock;
 
 public abstract class BaseActivity extends Activity {
 	
@@ -39,8 +41,6 @@ public abstract class BaseActivity extends Activity {
 	 
 	final static int handler_adapter = 888;
 	
-	String actvivityname ="base ";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -93,7 +93,7 @@ public abstract class BaseActivity extends Activity {
 	 */
 	protected void showToast(String str) {
 		if(mToast ==null) {
-			mToast = Toast.makeText(this, str, 3);
+			mToast = Toast.makeText(this, str, Toast.LENGTH_LONG);
 		}
 		mToast.setDuration(Toast.LENGTH_LONG);
 		mToast.setText(str);
@@ -106,7 +106,7 @@ public abstract class BaseActivity extends Activity {
 	 */
 	protected void showToast(int str) {
 		if(mToast ==null) {
-			mToast = Toast.makeText(this, str, 3);
+			mToast = Toast.makeText(this, str, Toast.LENGTH_LONG);
 		}
 		mToast.setDuration(Toast.LENGTH_LONG);
 		mToast.setText(str);
@@ -198,5 +198,11 @@ public abstract class BaseActivity extends Activity {
 //			unregisterReceiver(receiver);
 //			receiver = null;
 //		}
+	}
+
+	@Override public boolean dispatchTouchEvent(MotionEvent ev) {
+		//有操作，就更新操作时间
+		LockApplication.mLastOptionTime = System.currentTimeMillis();
+		return super.dispatchTouchEvent(ev);
 	}
 }

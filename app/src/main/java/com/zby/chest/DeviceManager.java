@@ -6,13 +6,17 @@ public class DeviceManager {
 	
 	private DeviceBean dbin;
 	
-	private static DeviceManager mDeviceManager;
+	private static volatile DeviceManager mDeviceManager;
 	
 	private DeviceManager() {}
-	
-	public synchronized static DeviceManager getInstance() {
+
+	public static DeviceManager getInstance() {
 		if(mDeviceManager==null) {
-			mDeviceManager = new DeviceManager();
+			synchronized (DeviceManager.class) {
+				if (mDeviceManager == null) {
+					mDeviceManager = new DeviceManager();
+				}
+			}
 		}
 		return mDeviceManager;
 	}

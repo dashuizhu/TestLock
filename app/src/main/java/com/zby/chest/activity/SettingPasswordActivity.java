@@ -1,16 +1,5 @@
 package com.zby.chest.activity;
 
-import com.zby.chest.DeviceManager;
-import com.zby.chest.LockApplication;
-import com.zby.chest.R;
-import com.zby.chest.agreement.BroadcastString;
-import com.zby.chest.agreement.CmdDataParse;
-import com.zby.chest.agreement.CmdPackage;
-import com.zby.chest.agreement.ConnectBroadcastReceiver;
-import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
-import com.zby.chest.model.DeviceBean;
-import com.zby.chest.model.DeviceSqlService;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,17 +9,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.zby.chest.AppString;
+import com.zby.chest.DeviceManager;
+import com.zby.chest.LockApplication;
+import com.zby.chest.R;
+import com.zby.chest.agreement.BroadcastString;
+import com.zby.chest.agreement.CmdDataParse;
+import com.zby.chest.agreement.CmdPackage;
+import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
+import com.zby.chest.model.DeviceBean;
+import com.zby.chest.model.DeviceSqlService;
+import com.zby.chest.utils.SetupData;
 
 /**
  * @author Administrator
  *
  */
 public class SettingPasswordActivity extends BaseActivity {
-	
+
+	public final static int TYPE_PASSWORD_ADMIN = 2;//管理员密码
+	public final static int TYPE_PASSWORD = 1;//开锁密码
+	public final static int TYPE_PASSWORD_PAIR = 0;//配对密码
+
 	private DeviceBean dbin;
 	private EditText et_old, et_new , et_confirm;
 	private TextView tv_name, tv_small_title;
@@ -65,12 +68,15 @@ public class SettingPasswordActivity extends BaseActivity {
 		if (!showBack) {
 			tv_back.setVisibility(View.GONE);
 		}
-		if(type==0) {//修改配对密码
+		if (type == TYPE_PASSWORD_PAIR) {//修改配对密码
 			tv_small_title.setText(R.string.password_pair_modify);
 			et_old.setVisibility(View.GONE);
 			et_new.requestFocus();
-		} else {//修改控制密码
+		} else if (type == TYPE_PASSWORD) {//修改控制密码
 			tv_small_title.setText(R.string.password_user_modify);
+			et_old.requestFocus();
+		} else if (type == TYPE_PASSWORD_ADMIN) { //管理员密码
+			tv_small_title.setText(R.string.password_admin_modify);
 			et_old.requestFocus();
 		}
 	}
@@ -96,6 +102,19 @@ public class SettingPasswordActivity extends BaseActivity {
 						setResult(Activity.RESULT_OK);
 						finish();
 						break;
+					case CmdDataParse.type_password_admin_modify_fail:
+						showToast(R.string.password_error);
+						et_old.setText("");
+						et_old.requestFocus();
+						break;
+					case CmdDataParse.type_password_admin_modify_success:
+						showToast(R.string.password_modify_verify_success);
+						String newPsd = et_new.getText().toString().trim();
+						SetupData.getSetupData(SettingPasswordActivity.this).save(AppString.KEY_ADMIN_PASSWORD+DeviceManager.getInstance().getDbin().getMac(), newPsd);
+						setResult(Activity.RESULT_OK);
+						finish();
+						break;
+
 					}
 					break;
 				}
@@ -134,15 +153,21 @@ public class SettingPasswordActivity extends BaseActivity {
 				return;
 		}
 		if(dbin.isLink()) {
-			if(type==0) {//修改配对密码
-				dbin.write(CmdPackage.modifyVerifyPassword9(newPsd));
-				dbin.setPairPassword(newPsd);
-				if(devSql==null) {
-					devSql = new DeviceSqlService(this);
-				}
-				devSql.insert(dbin);
-			} else {//修改用户滑动开锁密码
-				dbin.write(CmdPackage.getPasswordChange(old, newPsd));
+			switch (type) {
+				case TYPE_PASSWORD_PAIR://修改配对密码
+					dbin.write(CmdPackage.modifyVerifyPassword9(newPsd));
+					dbin.setPairPassword(newPsd);
+					if(devSql==null) {
+						devSql = new DeviceSqlService(this);
+					}
+					devSql.insert(dbin);
+					break;
+				case TYPE_PASSWORD://修改用户滑动开锁密码
+					dbin.write(CmdPackage.getPasswordChange(old, newPsd));
+					break;
+				case TYPE_PASSWORD_ADMIN:
+					dbin.write(CmdPackage.getPasswordAdminChange(old, newPsd));
+					break;
 			}
 		} else {
 			showToast(R.string.unlink);

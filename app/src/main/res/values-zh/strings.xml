@@ -48,6 +48,7 @@
     <string name="password_input">输入六位密码</string>
     <string name="password_input2">输入六位密码(非全0)</string>
     <string name="password_pair_input">输入六位绑定密码</string>
+    <string name="password_admin_input">输入六位管理员密码</string>
     <string name="password_unlike">两次密码输入不一致</string>
     <string name="binds_remove_info">解除绑定，会强制断开连接，并删除在首页的显示.</string>
     
@@ -58,6 +59,7 @@
     <string name="password_user_modify">修改开锁密码</string>
     <string name="password_modify_success">修改开锁密码成功</string>
     <string name="password_modify_verify_success">修改绑定密码成功</string>
+    <string name="password_modify_admin_success">修改管理员密码成功</string>
     <string name="password_input_old">输入六位旧密码</string>
     <string name="password_input_new">输入六位新密码</string>
     <string name="password_input_confirm">确认六位新密码</string>
