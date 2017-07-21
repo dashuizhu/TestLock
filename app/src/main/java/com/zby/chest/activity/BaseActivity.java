@@ -146,8 +146,31 @@ public abstract class BaseActivity extends Activity {
 		//((LockApplication)getApplication()).setHandler(mHandler);
 		super.onStop();
 	}
-	
-	
+
+	//protected void onMyStart() {
+	//	// TODO Auto-generated method stub
+	//	if(!isRegisterConnect) {
+	//		isRegisterConnect = true;
+	//		registerCmdBroad();
+	//	}
+	//	if(mHandler==null) {
+	//		Intent intent = new Intent(AppString.ACTION_VIEWPAGER);
+	//		intent.putExtra("item", -1);
+	//		sendBroadcast(intent);
+	//	} else {
+	//		((LockApplication) getApplication()).setHandler(mHandler);
+	//	}
+	//}
+    //
+	//protected void onMyStop() {
+	//	// TODO Auto-generated method stub
+	//	Log.e("tag", hashCode()+" init  baseactivity  onstop ");
+	//	if(isRegisterConnect) {
+	//		isRegisterConnect = false;
+	//		unregisterCmdBroad();
+	//	}
+	//	//((LockApplication)getApplication()).setHandler(mHandler);
+	//}
 	
 	@Override
 	protected void onDestroy() {

@@ -123,4 +123,5 @@
 </string>
     <string name="label_password_admin">Admin Password Setup</string>
     <string name="password_admin_modify">Admin Password Setup</string>
+    <string name="toast_15_second">密码开锁15秒内才能修改</string>
 </resources>

@@ -88,7 +88,7 @@ public class HomeActivity extends BaseActivity {
 			 bin.setName("锁锁名字" + i);
 			 bin.setMac("00000000000"+i);
 			 bin.setOnOff(false);
-			 bin.setModeType(DeviceBean.LockMode_scroll);
+			 bin.setModeType(i%3+1);
 			 bin.setLink(i%2==0);
 			 bin.setConnectionInterface(new BleBin(this, mHandler, null), this);
 			 list.add(bin);
@@ -124,11 +124,6 @@ public class HomeActivity extends BaseActivity {
 						dbin.write(CmdPackage.getLockOff(DeviceBean.LockMode_scroll));
 						//}
 						Log.d(TAG, "deviceListener.onScroll " + dbin.getName() + " " + dbin.getModeType());
-					} else if (dbin.getModeType() == DeviceBean.LockMode_password) {
-						//密码开锁15秒内 ，可以滑动解锁
-						if (dbin.isPasswordLockTimeAllow()) {
-							dbin.write(CmdPackage.getLockOff(DeviceBean.LockMode_scroll));
-						}
 					}
 				}
 			}

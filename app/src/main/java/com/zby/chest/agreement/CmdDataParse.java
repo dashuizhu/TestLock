@@ -152,13 +152,15 @@ public class CmdDataParse implements DataProtocolInterface{
 		//}
 		else if(isEquals(str, "0xCC 50 00 00 01")) {
 			type= type_name;
-		} else if (isEquals(str, "0xCC 30 01 8E")) {//管理员对比正确
+		} else if (isEquals(str, "0xCC 30 01 8E 8E")) {//管理员对比正确
 			 type = type_password_admin_success;
-		 } else if (isEquals(str, "0xCC 30 01 9E")) {//管理员对比错误
+			 dbin.setAdminVerify(true);
+		 } else if (isEquals(str, "0xCC 30 01 9E 9E")) {//管理员对比错误
 			 type = type_password_admin_fail;
-		 }else if (isEquals(str, "0xCC A0 01 6E")) {//管理员修改成功
+			 dbin.setAdminVerify(false);
+		 }else if (isEquals(str, "0xCC A0 01 6E 6C")) {//管理员修改成功
 			 type = type_password_admin_modify_success;
-		 }else if (isEquals(str, "0xCC B0 01 7E")) {//管理员修改失败
+		 }else if (isEquals(str, "0xCC B0 01 7E 7C")) {//管理员修改失败
 			 type = type_password_admin_modify_fail;
 		 }
 		if(type>0) {

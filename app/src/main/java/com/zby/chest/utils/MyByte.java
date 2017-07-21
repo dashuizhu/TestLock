@@ -157,5 +157,17 @@ public class MyByte {
 		}
 		return buffer;
   	}
-	
+
+	public static byte[]  string2buffer16(String str) {
+		if(str ==null)
+			return new byte[]{};
+		byte[]  buffer = new byte[str.length()];
+		for(int i=0; i<str.length(); i++) {
+			char c = str.charAt(i);
+			buffer[i] = (byte) c;
+		}
+		return buffer;
+	}
+
+
 }

@@ -1,5 +1,7 @@
 package com.zby.chest.utils;
 
+import android.content.ComponentName;
+import java.util.List;
 import java.util.Locale;
 
 import com.zby.chest.AppConstants;
@@ -194,5 +196,26 @@ public class Tools {
         	  }
         	  return null;
         	 }
+
+
+	/**
+	 * 需要权限:android.permission.GET_TASKS
+	 * 判断本程序是否运行在前台
+	 *
+	 * @return true
+	 */
+	public static boolean isApplicationInFornt(Context context) {
+		android.app.ActivityManager am =
+						(android.app.ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+		if (tasks != null && !tasks.isEmpty()) {
+			ComponentName topActivity = tasks.get(0).topActivity;
+			//LogUtils.v("tools", " the app is "+topActivity.getPackageName() );
+			if (topActivity.getPackageName().equals(context.getPackageName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

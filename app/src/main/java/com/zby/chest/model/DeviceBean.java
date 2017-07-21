@@ -1,5 +1,6 @@
 package com.zby.chest.model;
 
+import com.zby.chest.utils.MyByte;
 import java.security.acl.LastOwnerException;
 
 import com.zby.chest.AppConstants;
@@ -58,6 +59,7 @@ public class DeviceBean {
 
 	private boolean onOff;
 	private boolean isLink;
+	private boolean adminVerify; //管理员密码验证
 	
 	private ConnectionInterface bleBin;
 	private CmdDataParse cmdParse;
@@ -66,7 +68,14 @@ public class DeviceBean {
 	 * 上次密码开锁时间
 	 */
 	private long mLastPasswordTime;
-	
+
+	public boolean isAdminVerify() {
+		return adminVerify;
+	}
+
+	public void setAdminVerify(boolean adminVerify) {
+		this.adminVerify = adminVerify;
+	}
 
 	public int getId() {
 		return id;
@@ -208,6 +217,7 @@ public class DeviceBean {
 	}
 	
 	public boolean write(byte[] buffer) {
+		Log.w("test", "write :" + MyByte.buffer2String(buffer));
 		if(bleBin!=null) {
 			if(bleBin.isLink()) {
 				bleBin.write(buffer);
@@ -217,6 +227,7 @@ public class DeviceBean {
 		return false;
 	}
 	public boolean writeNoresponse(byte[] buffer) {
+		Log.w("test", "write :" + MyByte.buffer2String(buffer));
 		if(bleBin!=null) {
 			if(bleBin.isLink()) {
 				bleBin.write(buffer);

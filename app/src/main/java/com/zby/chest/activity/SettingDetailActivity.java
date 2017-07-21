@@ -51,8 +51,7 @@ public class SettingDetailActivity extends BaseActivity {
 	private TextView tv_lockName;
 	private TextView tv_language;
 	private TextView tv_lockMode;
-	private TextView tv_lockCount;
-	
+
 	private String lockname="";
 	private Dialog dialog;
 	
@@ -81,26 +80,29 @@ public class SettingDetailActivity extends BaseActivity {
 		tv_lockName = (TextView) findViewById(R.id.textView_lockName);
 		//tv_language = (TextView) findViewById(R.id.textView_language);
 		tv_lockMode = (TextView) findViewById(R.id.textView_lockMode);
-		tv_lockCount = (TextView) findViewById(R.id.textView_bindCount);
 		layout_password = (RelativeLayout) (findViewById(R.id.layout_password));
 		layout_lockName = (RelativeLayout) (findViewById(R.id.layout_lock_name));
 		layout_lockMode = (RelativeLayout) (findViewById(R.id.layout_lock_mode));
 		layout_passwordPair = (RelativeLayout) (findViewById(R.id.layout_password_pair));
 		layout_passwordAdmin = (RelativeLayout) (findViewById(R.id.layout_password_admin));
 
-		isAdminSuccess(false);
+		//管理员密码验证，验证成功才能 操作设置
+		isAdminSuccess(dbin.isAdminVerify());
+		if (!dbin.isAdminVerify()) {//如果验证不成功， 就弹出管理员密码
+			showAdminPasswordDialog();
+		}
 
+		//new Thread(new Runnable() {
+		//
+		//	@Override
+		//	public void run() {
+		//		// TODO Auto-generated method stub
+		//		//变成验证管理员密码
+		//		String admin = SetupData.getSetupData(SettingDetailActivity.this).read(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), AppConstants.DEFAULT_ADMIN_PASSWORD);
+		//		dbin.writeNoresponse(CmdPackage.verifyAdminPassword(admin));
+		//	}
+		//}).start();
 
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				//变成验证管理员密码
-				String admin = SetupData.getSetupData(SettingDetailActivity.this).read(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), AppConstants.DEFAULT_ADMIN_PASSWORD);
-				dbin.writeNoresponse(CmdPackage.verifyAdminPassword(admin));
-			}
-		}).start();
 	}
 	
 	private void initData() {
@@ -111,14 +113,16 @@ public class SettingDetailActivity extends BaseActivity {
 		}
 		tv_lockName.setText(dbin.getName());
 		tv_lockMode.setText(Tools.getModeName(this, dbin.getModeType()));
-		layout_password.setEnabled(dbin.getModeType()==DeviceBean.LockMode_password);
+		layout_password.setEnabled(dbin.isAdminVerify() && dbin.getModeType()==DeviceBean.LockMode_password);
 		//tv_language.setText(Tools.getLanguageName(this, SetupData.getSetupData(this).readInt(AppString.language, AppConstants.language_default)));
 	}
 
 	
 	void initHandler() {
 		mHandler = new Handler(){
+
 			public void handleMessage(Message msg) {
+				Log.d("test", " test  " + msg.what);
 				switch(msg.what) {
 				case BroadcastString.Broad_Cmd:
 					switch(msg.arg1) {
@@ -137,7 +141,6 @@ public class SettingDetailActivity extends BaseActivity {
 						showToast(R.string.binds_remove_fail);
 						break;
 					case CmdDataParse.type_binds_success:
-						tv_lockCount.setText(""+dbin.getBindCount());
 						break;
 					case CmdDataParse.type_lock_mode:
 						initData();
@@ -156,6 +159,7 @@ public class SettingDetailActivity extends BaseActivity {
 						break;
 					case CmdDataParse.type_password_admin_success:
 						isAdminSuccess(true);
+						disDialog();
 						String admin = et_grv.getPassWord();
 						SetupData.getSetupData(SettingDetailActivity.this).save(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), admin);
 							break;
@@ -187,8 +191,13 @@ public class SettingDetailActivity extends BaseActivity {
 //						deviceSql.delete(dbin.getId());
 //						((LockApplication)getApplication()).removeDeviceBin(dbin);
 //					}
-					dbin.write(CmdPackage.removeBindMac(Tools.getMacAddress(SettingDetailActivity.this)));
+//					dbin.write(CmdPackage.removeBindMac(Tools.getMacAddress(SettingDetailActivity.this)));
 					setResult(Activity.RESULT_OK);
+					if(deviceSql==null) {
+						deviceSql = new DeviceSqlService(SettingDetailActivity.this);
+					}
+					mApp.removeDeviceBinNotStop(dbin.getMac(), false);
+					finish();
 				}});
 			dialog.show();
 			break;
@@ -238,8 +247,13 @@ public class SettingDetailActivity extends BaseActivity {
 					// TODO Auto-generated method stub
 					Log.d(TAG, dbin.getModeType() + "  change lockMode type " + type);
 					if(dbin.getModeType() == DeviceBean.LockMode_password) {
-						if(!dbin.isOnOff()) {
-							showToast(R.string.dialog_lock_password_info);
+						//if(!dbin.isOnOff()) {
+						//	showToast(R.string.dialog_lock_password_info);
+						//	return;
+						//}
+						//只有15秒内
+						if (!dbin.isPasswordLockTimeAllow()) {
+							showToast(R.string.toast_15_second);
 							return;
 						}
 					}
@@ -344,7 +358,7 @@ public class SettingDetailActivity extends BaseActivity {
 
 	private void showAdminPasswordDialog() {
 		disDialog();
-		dialog = AlertDialogService.getInputDialog2(SettingDetailActivity.this,"", getString(R.string.password_pair_input), new AlertDialogService.onMyInputListener2() {
+		dialog = AlertDialogService.getInputDialog2(SettingDetailActivity.this,"", getString(R.string.password_admin_input), new AlertDialogService.onMyInputListener2() {
 
 			@Override
 			public void onClick(Dialog d, String password,
@@ -353,8 +367,7 @@ public class SettingDetailActivity extends BaseActivity {
 				//et_input = tv;
 				et_grv = grv;
 				if(password.length()==6) {
-					dbin.setPairPassword(password);
-					dbin.write(CmdPackage.verifyPassword(password));
+					dbin.write(CmdPackage.verifyAdminPassword(password));
 				} else {
 					showToast(R.string.password_input);
 				}
@@ -365,9 +378,6 @@ public class SettingDetailActivity extends BaseActivity {
 				// TODO Auto-generated method stub
 				if(d!=null && d.isShowing()) {
 					d.cancel();
-				}
-				if(dbin!=null) {
-					dbin.stopConnect();
 				}
 			}
 		});

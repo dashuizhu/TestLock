@@ -35,7 +35,7 @@ public class AppConstants {
 	public final static int language_default = language_en;
 
 	
-	public static final boolean isDemo = true;
+	public static final boolean isDemo = false;
 	
 	/**
 	 * 搜索间隔时间

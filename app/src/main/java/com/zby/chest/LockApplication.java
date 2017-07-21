@@ -1,5 +1,6 @@
 package com.zby.chest;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -20,6 +22,7 @@ import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
 import com.zby.chest.model.DeviceBean;
 import com.zby.chest.model.DeviceSqlService;
 import com.zby.chest.utils.Myhex;
+import com.zby.chest.utils.SetupData;
 import com.zby.chest.utils.Tools;
 import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
@@ -34,6 +37,9 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 public class LockApplication extends Application {
+
+	//当前start状态的activity个数
+	private int count;
 	
 public static final String TAG = LockApplication.class.getSimpleName();
 	
@@ -66,7 +72,9 @@ public static final String TAG = LockApplication.class.getSimpleName();
 		 */
 	 private ConnectBroadcastReceiver cmdreceiver;
 		
-	
+	private boolean isAutoLost = false;
+
+	private boolean isInBack = false;
 
 	@Override
 	public void onCreate() {
@@ -91,18 +99,53 @@ public static final String TAG = LockApplication.class.getSimpleName();
 			AppConstants.scrollDistance = 10;
 			Fabric.with(this, new Crashlytics());
 		}
-		
-		// 异常处理，不需要处理时注释掉这两句即可！  
-//	    CrashHandler crashHandler = CrashHandler.getInstance();   
-//	    // 注册crashHandler   
-//	    crashHandler.init(getApplicationContext());   
-//
-//	    /**
-//	     * 这里有个问题， 要判断网络状况，  在这里调用，就只是在启动软件的时候，发送以前的错误信息到服务器，
-//	     * 如果要及时的  发生错误就发送信息，  就得将这个sendPreviousReportsToServer函数在handlerException中调用
-//	     */
-//		//发送错误报告到服务器 
-//		crashHandler.sendPreviousReportsToServer();
+
+
+		registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+			@Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+			}
+
+			@Override public void onActivityStarted(Activity activity) {
+				if (isInBack) {
+					isAutoLost = false;
+					Log.v("application", ">>>>>>>>>>>>>>>>>>>切到前台 ");
+				}
+				isInBack = false;
+			}
+
+			@Override public void onActivityResumed(Activity activity) {
+				//if (count == 0) {
+				//	Log.v("application", ">>>>>>>>>>>>>>>>>>>切到前台 "+count);
+				//	isAutoLost = false;
+				//}
+				//count++;
+
+			}
+
+			@Override public void onActivityPaused(Activity activity) {
+			}
+
+			@Override public void onActivityStopped(Activity activity) {
+				//if (!Tools.isApplicationInFornt(getApplicationContext())) {
+				//	isInBack = true;
+				//	Log.v("application", ">>>>>>>>>>>>>>>>>>>切到后台 "+count);
+				//}
+				//count--;
+				//if (count == 0) {
+					//只有app最后一个页面，才调停止
+				//}
+			}
+
+			@Override public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+			}
+
+			@Override public void onActivityDestroyed(Activity activity) {
+
+			}
+		});
+
 		mLastOptionTime = System.currentTimeMillis();
 		startAutoLostBlueSubscripiton();
 		super.onCreate();
@@ -418,15 +461,12 @@ public static final String TAG = LockApplication.class.getSimpleName();
 //							} 
 //						}
 					} else { //没连上，就要连上
-						bean.setModeType(0);
-//						bean.setOnOff(onOff);
-						bean.connect();
-//						if(bean.getModeType()==DeviceBean.LockMode_auto ) {//需要自动解锁
-//							if(!unlockSet.containsKey(bean.getMac())) {
-//								unlockSet.put(bean.getMac(), bean);
-//							}
-//						} else {
-//						}
+						//如果是5分钟不操作自动断开，就不再重连
+						if (!isAutoLost) {
+							bean.setModeType(0);
+							//						bean.setOnOff(onOff);
+							bean.connect();
+						}
 					}
 					return ;
 				}
@@ -512,7 +552,9 @@ public static final String TAG = LockApplication.class.getSimpleName();
 							}
                             try {
                                 Thread.sleep(1100);
-                                dbin.write(CmdPackage.verifyMac(Tools.getMacAddress(getApplicationContext())));
+								String defaultAdminPsd = SetupData.getSetupData(getApplicationContext()).read(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), AppConstants.DEFAULT_ADMIN_PASSWORD);
+
+                                dbin.write(CmdPackage.verifyAdminPassword(defaultAdminPsd));
                             } catch (InterruptedException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();
@@ -577,8 +619,11 @@ public static final String TAG = LockApplication.class.getSimpleName();
 				@Override public void call(Long aLong) {
 					long delayTime = System.currentTimeMillis() - mLastOptionTime;
 					if (delayTime > AppConstants.auto_lost_time) {
+						Log.d(TAG, " time auto lost");
+						isAutoLost = true;
 						mBluetoothLeService.closeAll();
 						mLastOptionTime = System.currentTimeMillis();
+						System.exit(0);
 					}
 				}
 			}, new Action1<Throwable>() {

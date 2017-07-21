@@ -45,7 +45,6 @@ public class SettingActivity extends BaseActivity{
 		setContentView(R.layout.activity_setting);
 		initViews();
 		initHandle();
-		actvivityname = "setting";
 		if (br==null) {
 			br = new BroadcastReceiver(){
 

@@ -108,7 +108,7 @@ public class SettingPasswordActivity extends BaseActivity {
 						et_old.requestFocus();
 						break;
 					case CmdDataParse.type_password_admin_modify_success:
-						showToast(R.string.password_modify_verify_success);
+						showToast(R.string.password_modify_admin_success);
 						String newPsd = et_new.getText().toString().trim();
 						SetupData.getSetupData(SettingPasswordActivity.this).save(AppString.KEY_ADMIN_PASSWORD+DeviceManager.getInstance().getDbin().getMac(), newPsd);
 						setResult(Activity.RESULT_OK);

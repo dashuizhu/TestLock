@@ -90,22 +90,6 @@ public class CmdPackage {
 		return buffer;
 	}
 
-	/**
-	 * 人证mac
-	 * 
-	 * @param mac
-	 * @return
-	 */
-	public static byte[] verifyMac(String mac) {
-		byte[] buffer = new byte[10];
-		buffer[0] = (byte) 0xAA;
-		buffer[1] = (byte) 0x01;
-		buffer[2] = (byte) 0x06;
-		buffer[9] = (byte) 0x00;
-		byte[] macBuff = Myhex.hexStringToByte(mac);
-		System.arraycopy(macBuff, 0, buffer, 3, macBuff.length);
-		return buffer;
-	}
 
 	/**
 	 * 检测连接密码
@@ -137,7 +121,7 @@ public class CmdPackage {
 		buffer[2] = (byte) 0x06;
 		buffer[9] = (byte) 0x03;
 		byte[] passBuff = MyByte.string2bufferO(password);
-		//System.arraycopy(passBuff, 0, buffer, 3, passBuff.length);
+		System.arraycopy(passBuff, 0, buffer, 3, passBuff.length);
 		//byte crc =CrcUtils.calcCrc8(buffer, 1, buffer.length-2);
 		//buffer[9] = crc;
 		return buffer;
@@ -194,12 +178,13 @@ public class CmdPackage {
 	  buff[0] = (byte) 0xCC;
 	  buff[1] = (byte) 0x50;
 	  buff[2] = (byte) 0x0C;
-	  buff[buff.length - 1] = (byte) 0x0F;
+	  //buff[buff.length - 1] = (byte) 0x0F;
 	  byte[] oldPsd = MyByte.string2bufferO(password);
 	  byte[] newPsd = MyByte.string2bufferO(newPassword);
 	  System.arraycopy(oldPsd, 0, buff, 3, oldPsd.length);
 	  System.arraycopy(newPsd, 0, buff, 3 + oldPsd.length, newPsd.length);
-
+	  byte crc8 = CrcUtils.calcCrc8(buff, 1, buff.length-2);
+	  buff[buff.length-1] = crc8;
 	  return buff;
   }
 
@@ -213,8 +198,8 @@ public class CmdPackage {
 		buffer[1] = (byte) 0x30;
 		buffer[2] = (byte) 0x06;
 		buffer[9] = (byte) 0x00;
-		byte[] macBuff = Myhex.hexStringToByte(adminPsd);
-		System.arraycopy(macBuff, 0, buffer, 3, macBuff.length);
+       byte[] passBuff = MyByte.string2bufferO(adminPsd);
+		System.arraycopy(passBuff, 0, buffer, 3, passBuff.length);
 		return buffer;
 	}
 }
