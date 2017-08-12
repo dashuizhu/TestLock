@@ -164,6 +164,7 @@ public class SettingDetailActivity extends BaseActivity {
 						SetupData.getSetupData(SettingDetailActivity.this).save(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), admin);
 							break;
 					case CmdDataParse.type_password_admin_fail:
+						showToast(R.string.toast_admin_password_error);
 						showAdminPasswordDialog();
 							break;
 					}

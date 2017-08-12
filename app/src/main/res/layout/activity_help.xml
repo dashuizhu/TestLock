@@ -56,6 +56,7 @@
                     android:id="@+id/layout_installinfo"
                     android:onClick="onClick"
                     style="@style/layout"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 

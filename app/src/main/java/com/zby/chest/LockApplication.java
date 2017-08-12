@@ -2,6 +2,8 @@ package com.zby.chest;
 
 import android.app.Activity;
 import android.app.Application;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +13,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
@@ -80,7 +83,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		String curPack = Tools.getCurProcessName(this);
-		if(curPack.equals("com.zby.chest")) {
+		if(curPack.equals(getPackageName())) {
 			bindService();
 			if(!isRegister) {
 				cmdreceiver = new ConnectBroadcastReceiver( mHandler);
@@ -428,8 +431,12 @@ public static final String TAG = LockApplication.class.getSimpleName();
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 		public void onReceive(android.content.Context arg0, android.content.Intent intent) {
 			if(intent.getAction().equals(BluetoothLeServiceMulp.ACTION_BLUETOOTH_FOUND)) {//发现了蓝牙设备
-				String mac =intent.getStringExtra("mac");
 				String name =intent.getStringExtra("name");
+				//名字过滤
+				if (TextUtils.isEmpty(name) || !name.equals("DP151A")) {
+					return;
+				}
+				String mac =intent.getStringExtra("mac");
 				int rssi =intent.getIntExtra("rssi", 100);
 				int type = intent.getIntExtra("type", 1);
 				boolean onOff= intent.getBooleanExtra("onOff", false);
@@ -623,6 +630,23 @@ public static final String TAG = LockApplication.class.getSimpleName();
 						isAutoLost = true;
 						mBluetoothLeService.closeAll();
 						mLastOptionTime = System.currentTimeMillis();
+
+						if (SetupData.getSetupData(getApplicationContext()).readBoolean(AppString.exit_closeBT)) {
+							BluetoothManager mBluetoothManager = null;
+							BluetoothAdapter mBluetoothAdapter;
+							if (mBluetoothManager == null) {
+								mBluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+								if (mBluetoothManager == null) {
+									Log.e(TAG, "Unable to initialize BluetoothManager.");
+								}
+							}
+
+							mBluetoothAdapter = mBluetoothManager.getAdapter();
+							if (mBluetoothAdapter == null) {
+								Log.e(TAG, "Unable to obtain a BluetoothAdapter.");
+							}
+							mBluetoothAdapter.disable();
+						}
 						System.exit(0);
 					}
 				}
