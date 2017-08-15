@@ -79,6 +79,8 @@ public static final String TAG = LockApplication.class.getSimpleName();
 
 	private boolean isInBack = false;
 
+	List<Activity> mActivityList = new ArrayList<Activity>();
+
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -106,7 +108,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 
 		registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 			@Override public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
+				mActivityList.add(activity);
 			}
 
 			@Override public void onActivityStarted(Activity activity) {
@@ -145,7 +147,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 			}
 
 			@Override public void onActivityDestroyed(Activity activity) {
-
+				mActivityList.remove(activity);
 			}
 		});
 
@@ -433,7 +435,7 @@ public static final String TAG = LockApplication.class.getSimpleName();
 			if(intent.getAction().equals(BluetoothLeServiceMulp.ACTION_BLUETOOTH_FOUND)) {//发现了蓝牙设备
 				String name =intent.getStringExtra("name");
 				//名字过滤
-				if (TextUtils.isEmpty(name) || !name.equals("DP151A")) {
+				if (TextUtils.isEmpty(name) || !name.trim().toLowerCase().startsWith("dp151a")) {
 					return;
 				}
 				String mac =intent.getStringExtra("mac");
@@ -647,6 +649,11 @@ public static final String TAG = LockApplication.class.getSimpleName();
 							}
 							mBluetoothAdapter.disable();
 						}
+
+						for (int i= 0; i<mActivityList.size(); i++) {
+							mActivityList.get(i).finish();
+						}
+						android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
 						System.exit(0);
 					}
 				}
