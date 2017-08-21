@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -383,9 +382,6 @@ public class ScanActivity extends BaseActivity {
 	private BroadcastReceiver bluereceiver;
 	
 	private synchronized void foundDevice(String mac ,String name, int rssi, int type) {
-		if (TextUtils.isEmpty(name) || !name.trim().toLowerCase().startsWith("dp151a")) {
-			return;
-		}
 		DeviceBlueBean bBean;
 		for(int i=0; i<list.size(); i++) {
 			bBean = list.get(i);

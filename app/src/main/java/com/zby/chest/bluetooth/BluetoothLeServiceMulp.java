@@ -86,7 +86,9 @@ public class BluetoothLeServiceMulp extends Service {
 	
 	private byte[] lastBuffer;
 
-	
+	/**
+	 * 蓝牙设备过滤广播
+	 */
 	private final static String filterString = "02 01 06 03 02 F0 FF 05 FF 1C C1 B1 1B";
 	
 	/**

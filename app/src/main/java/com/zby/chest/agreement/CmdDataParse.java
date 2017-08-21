@@ -95,6 +95,8 @@ public class CmdDataParse implements DataProtocolInterface{
 		} else if(isEquals(str,"0xCC 0x01 0x01 0x2E 0x2E")) {//密码开锁成功
 			if(dbin.getModeType() == DeviceBean.LockMode_password) {
 				type= type_password_success;
+				//记录密码开锁时间
+				dbin.setLastPasswordTime(System.currentTimeMillis());
 				dbin.setOnOff(true);
 			}
 		} else if(isEquals(str,"0xCC 0x01 0x01 0x3E 0x3E")) {//开锁密码错误

@@ -1,7 +1,5 @@
 package com.zby.chest;
 
-import android.content.Intent;
-
 public class AppString {
 	
 	public static final String language="language";
