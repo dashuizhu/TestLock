@@ -147,7 +147,7 @@ public class DeviceBean {
 	public String getName() {
 		if(name!=null && name.contains("DP151") && name.length()>12) {
 			String shortName = name.substring(name.length()-6, name.length());
-			return "DP151-"+ shortName;
+			return "DP151A-"+ shortName;
 		}
 		return name==null? "":name.trim();
 	}
