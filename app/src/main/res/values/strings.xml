@@ -66,7 +66,7 @@
     <string name="name_input">Rename</string>
     <string name="name_tolong">Too Long!</string>
     <string name="name_empty">Cannot be Empty!</string>
-    <string name="name_format_error">CAN NOT CONTAIN “DP151”</string>
+    <string name="name_format_error">CAN NOT CONTAIN “DP151A”</string>
     <string name="password_error">Wrong Password</string>
     
     <string name="low_alert">Low Power, Please Replace Battery!</string>

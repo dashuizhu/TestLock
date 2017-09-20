@@ -127,21 +127,22 @@ public class SettingPasswordActivity extends BaseActivity {
 		String newPsd = et_new.getText().toString().trim();
 		String conPsd = et_confirm.getText().toString().trim();
 		if(type==1 && old.length()!=6) {//配对密码不需要旧密码
-			showToast(R.string.password_input2);
+			showToast(R.string.password_input);
 			et_old.requestFocus();
 			return;
 		}
 		if(newPsd.length()!=6) {
-			showToast(R.string.password_input2);
+			showToast(R.string.password_input);
 			et_new.requestFocus();
 			return;
 		}
 		if(conPsd.length()!=6) {
-			showToast(R.string.password_input2);
+			showToast(R.string.password_input);
 			et_confirm.requestFocus();
 			return;
 		}
-		if(newPsd.equals("000000")) {
+		//只有管理员密码 ，才需要判断为非0
+		if(type == TYPE_PASSWORD_PAIR && newPsd.equals("000000")) {
 			showToast(R.string.password_input2);
 			et_new.setText("");
 			et_new.requestFocus();

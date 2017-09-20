@@ -122,7 +122,7 @@
 \n
     </string>
     <string name="label_password_admin">管理员密码</string>
-    <string name="password_admin_modify">管理员密码</string>
-    <string name="toast_15_second">密码开锁15秒内才能修改</string>
+    <string name="password_admin_modify">修改管理员密码</string>
+    <string name="toast_15_second">开锁后15秒内才能切换</string>
     <string name="toast_admin_password_error">密码错误</string>
 </resources>

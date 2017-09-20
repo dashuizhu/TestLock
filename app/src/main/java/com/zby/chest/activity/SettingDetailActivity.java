@@ -215,7 +215,7 @@ public class SettingDetailActivity extends BaseActivity {
 							showToast(R.string.name_empty);
 							return;
 						} 
-						if (name.contains("DP151")) {
+						if (name.toUpperCase().contains("DP151")) {
 							showToast(R.string.name_format_error);
 							return;
 						}
