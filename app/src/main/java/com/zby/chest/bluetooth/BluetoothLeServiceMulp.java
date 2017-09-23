@@ -457,21 +457,23 @@ public class BluetoothLeServiceMulp extends Service {
 	}
 
 	public void closeAll() {
-		for (String key : gattMaps.keySet()) {
-			BluetoothGatt gatt = gattMaps.get(key);
+		Iterator<Map.Entry<String, BluetoothGatt>> gattItera = gattMaps.entrySet().iterator();
+		while (gattItera.hasNext()) {
+			Map.Entry<String, BluetoothGatt>  entry = gattItera.next();
+			BluetoothGatt gatt = entry.getValue();
 			gatt.disconnect();
 			gatt.close();
-			gatt = null;
-			MyLog.d(TAG, "close connected: " + key);
-			gattMaps.remove(key);
+			MyLog.w(TAG, "close connected: " + entry.getKey());
+			gattItera.remove();
 		}
-		for (String key : gattMapsConnting.keySet()) {
-			BluetoothGatt gatt = gattMapsConnting.get(key);
+		Iterator<Map.Entry<String, BluetoothGatt>> connItera = gattMapsConnting.entrySet().iterator();
+		while (connItera.hasNext()) {
+			Map.Entry<String, BluetoothGatt>  entry = connItera.next();
+			BluetoothGatt gatt = entry.getValue();
 			gatt.disconnect();
 			gatt.close();
-			gatt = null;
-			MyLog.d(TAG, "close connecting: " + key);
-			gattMapsConnting.remove(key);
+			MyLog.w(TAG, "close connecting: " + entry.getKey());
+			connItera.remove();
 		}
 	}
 

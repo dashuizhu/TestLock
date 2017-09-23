@@ -45,8 +45,8 @@
     <string name="unlink">Disconnected</string>
     <string name="lock_off">Unlock</string>
     
-    <string name="password_input">Enter 6 Digits Passord</string>
-    <string name="password_input2">Enter 6 Digits Passord(Not all 0)</string>
+    <string name="password_input">Enter 6 Digits Password</string>
+    <string name="password_input2">Enter 6 Digits Password(Not all 0)</string>
     <string name="password_pair_input">Pairing Password</string>
     <string name="password_admin_input">Admin Password</string>
     <string name="password_unlike">Different Passwords</string>

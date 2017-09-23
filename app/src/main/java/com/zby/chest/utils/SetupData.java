@@ -107,4 +107,13 @@ public class SetupData {
 		i=sp.getLong(key,0);
 		return i;
 	}
+
+  public void remove(String s) {
+	  if (editor != null) {
+		  editor.remove(s);
+		  editor.commit();
+	  }
+	  String str = sp.getString(s, "xxx");
+	  System.out.println(str);
+  }
 }

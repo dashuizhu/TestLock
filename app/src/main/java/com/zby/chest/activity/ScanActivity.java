@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.jungly.gridpasswordview.GridPasswordView;
+import com.zby.chest.AppConstants;
 import com.zby.chest.AppString;
 import com.zby.chest.DeviceManager;
 import com.zby.chest.LockApplication;
@@ -29,6 +30,7 @@ import com.zby.chest.bluetooth.BluetoothLeServiceMulp;
 import com.zby.chest.model.DeviceBean;
 import com.zby.chest.model.DeviceBlueBean;
 import com.zby.chest.utils.Myhex;
+import com.zby.chest.utils.SetupData;
 import com.zby.chest.utils.Tools;
 import com.zby.chest.view.AlertDialogService;
 import com.zby.chest.view.AlertDialogService.onMyInputListener2;
@@ -256,6 +258,30 @@ public class ScanActivity extends BaseActivity {
 								intent.putExtra("item", 0);
 								sendBroadcast(intent);
 							}
+							new Thread(new Runnable() {
+								@Override public void run() {
+									String defaultAdminPsd = SetupData.getSetupData(getApplicationContext())
+													.read(AppString.KEY_ADMIN_PASSWORD + dbin.getMac(),
+																	AppConstants.DEFAULT_ADMIN_PASSWORD);
+									try {
+										Thread.sleep(1100);
+
+										dbin.write(CmdPackage.verifyAdminPassword(defaultAdminPsd));
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									if (!dbin.isAdminVerify()) {
+										try {
+											Thread.sleep(1100);
+											dbin.write(CmdPackage.verifyAdminPassword(defaultAdminPsd));
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								}
+							}).start();
 						}
 						break;
 					}
@@ -430,7 +456,7 @@ public class ScanActivity extends BaseActivity {
 			unregisterReceiver(bluereceiver);
 		}
 		bluereceiver=null;
-		dbin =null;
+		//dbin =null;
 		super.onStop();
 	}
 	

@@ -24,8 +24,8 @@ android {
         applicationId "com.zby.lock"
         minSdkVersion 18
         targetSdkVersion 21
-        versionCode 7
-        versionName "2.06"
+        versionCode 8
+        versionName "2.07"
     }
 
     buildTypes {

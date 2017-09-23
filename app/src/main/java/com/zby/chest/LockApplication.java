@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
+import com.zby.chest.activity.HomeActivity;
 import com.zby.chest.agreement.BroadcastString;
 import com.zby.chest.agreement.CmdPackage;
 import com.zby.chest.agreement.ConnectBroadcastReceiver;
@@ -554,17 +555,18 @@ public class LockApplication extends Application {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
               }
+              if (!dbin.isAdminVerify()) {
+                try {
+                  Thread.sleep(1100);
+                  String defaultAdminPsd = SetupData.getSetupData(getApplicationContext())
+                          .read(AppString.KEY_ADMIN_PASSWORD + dbin.getMac(),
+                                  AppConstants.DEFAULT_ADMIN_PASSWORD);
 
-              try {
-                Thread.sleep(1100);
-                String defaultAdminPsd = SetupData.getSetupData(getApplicationContext())
-                        .read(AppString.KEY_ADMIN_PASSWORD + dbin.getMac(),
-                                AppConstants.DEFAULT_ADMIN_PASSWORD);
-
-                dbin.write(CmdPackage.verifyAdminPassword(defaultAdminPsd));
-              } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                  dbin.write(CmdPackage.verifyAdminPassword(defaultAdminPsd));
+                } catch (InterruptedException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+                }
               }
               //unlockSet.remove(mac);
             }
@@ -640,9 +642,6 @@ public class LockApplication extends Application {
       @Override public void run() {
         Log.d(TAG, " time auto lost");
         isAutoLost = true;
-        mBluetoothLeService.closeAll();
-        mLastOptionTime = System.currentTimeMillis();
-
         if (SetupData.getSetupData(getApplicationContext()).readBoolean(AppString.exit_closeBT)) {
           BluetoothManager mBluetoothManager = null;
           BluetoothAdapter mBluetoothAdapter;
@@ -658,6 +657,12 @@ public class LockApplication extends Application {
             }
           }
         }
+        if (mBluetoothLeService!=null) {
+          mBluetoothLeService.closeAll();
+        }
+        mLastOptionTime = System.currentTimeMillis();
+
+
 
         for (int i = 0; i < mActivityList.size(); i++) {
           mActivityList.get(i).finish();

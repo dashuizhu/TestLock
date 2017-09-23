@@ -54,6 +54,7 @@ public class SettingDetailActivity extends BaseActivity {
 
 	private String lockname="";
 	private Dialog dialog;
+	private Dialog adminDialog;
 	
 	private LockApplication mApp;
 	private GridPasswordView et_grv;
@@ -134,7 +135,7 @@ public class SettingDetailActivity extends BaseActivity {
 						//deviceSql.delete(dbin.getId());
 						//((LockApplication)getApplication()).removeDeviceBin(dbin.getMac());
                         mApp.removeDeviceBinNotStop(dbin.getMac(), false);
-						
+						SetupData.getSetupData(SettingDetailActivity.this).remove(AppString.KEY_ADMIN_PASSWORD+dbin.getMac());
 						finish();
 						break;
 					case CmdDataParse.type_binds_remove_fail:
@@ -160,8 +161,10 @@ public class SettingDetailActivity extends BaseActivity {
 					case CmdDataParse.type_password_admin_success:
 						isAdminSuccess(true);
 						disDialog();
-						String admin = et_grv.getPassWord();
-						SetupData.getSetupData(SettingDetailActivity.this).save(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), admin);
+						if (et_grv!=null) {
+							String admin = et_grv.getPassWord();
+							SetupData.getSetupData(SettingDetailActivity.this).save(AppString.KEY_ADMIN_PASSWORD+dbin.getMac(), admin);
+						}
 							break;
 					case CmdDataParse.type_password_admin_fail:
 						showToast(R.string.toast_admin_password_error);
@@ -198,6 +201,7 @@ public class SettingDetailActivity extends BaseActivity {
 						deviceSql = new DeviceSqlService(SettingDetailActivity.this);
 					}
 					mApp.removeDeviceBinNotStop(dbin.getMac(), false);
+					SetupData.getSetupData(SettingDetailActivity.this).remove(AppString.KEY_ADMIN_PASSWORD+dbin.getMac());
 					finish();
 				}});
 			dialog.show();

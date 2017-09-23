@@ -307,7 +307,7 @@ public class DeviceBean {
 				tv_switch.setVisibility(View.VISIBLE);
 				tv_switch.setBackgroundResource(switchRes);
 				tv_switch.setHeight(ScreenUtils.dp2sp(mContext,80));
-				tv_switch.setWidth(ScreenUtils.dp2sp(mContext,100));
+				tv_switch.setWidth(ScreenUtils.dp2sp(mContext,120));
 			}
 			tv_switch.setSelected(isOnOff()&& isLinkSuccess());
 //			Drawable switchDrawable =  mContext.getResources().getDrawable(switchRes);

@@ -1,5 +1,7 @@
 package com.zby.chest.activity;
 
+import com.zby.chest.AppString;
+import com.zby.chest.utils.SetupData;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -200,6 +202,8 @@ public class HomeActivity extends BaseActivity {
 								deviceBean.closeConnect();
 							}
 							mApp.removeDeviceBin(deviceBean.getMac());
+							SetupData.getSetupData(HomeActivity.this).remove(
+											AppString.KEY_ADMIN_PASSWORD+deviceBean.getMac());
 							adapter.notifyDataSetChanged();
 						}
 					});
@@ -299,7 +303,10 @@ public class HomeActivity extends BaseActivity {
 							    String macc = (String) msg.obj;
                                 Log.d("tag_"+TAG, "绑定失败错误" + macc);
                                 mApp.removeDeviceBinNotStopBandingFail(macc, true);
-                                adapter.notifyDataSetChanged();
+								//删除记忆的 管理员密码
+								SetupData.getSetupData(HomeActivity.this).remove(
+												AppString.KEY_ADMIN_PASSWORD+macc);
+								adapter.notifyDataSetChanged();
 							    break;
 							case CmdDataParse.type_low_alert:
 								String[] nameMac= (String[]) msg.obj;

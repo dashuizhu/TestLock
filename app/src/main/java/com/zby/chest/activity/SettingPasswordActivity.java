@@ -132,12 +132,20 @@ public class SettingPasswordActivity extends BaseActivity {
 			return;
 		}
 		if(newPsd.length()!=6) {
-			showToast(R.string.password_input);
+			if (type == TYPE_PASSWORD_PAIR) {
+				showToast(R.string.password_input2);
+			} else {
+				showToast(R.string.password_input);
+			}
 			et_new.requestFocus();
 			return;
 		}
 		if(conPsd.length()!=6) {
-			showToast(R.string.password_input);
+			if (type == TYPE_PASSWORD_PAIR) {
+				showToast(R.string.password_input2);
+			} else {
+				showToast(R.string.password_input);
+			}
 			et_confirm.requestFocus();
 			return;
 		}
